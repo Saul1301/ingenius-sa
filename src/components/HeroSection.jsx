@@ -1,0 +1,289 @@
+import React, { useRef, useEffect, useState } from 'react';
+import { motion, useMotionValue, useSpring } from 'framer-motion';
+import { ArrowRight, ChevronDown, Sparkles, Rocket, Clock, Star, Lock } from 'lucide-react';
+import MagneticButton from './MagneticButton';
+import TypingTerminal from './TypingTerminal';
+
+// ─── Count-up hook ────────────────────────────────────────────────────────────
+function useCountUp(target, duration = 1800, start = false) {
+  const [count, setCount] = useState(0);
+  useEffect(() => {
+    if (!start) return;
+    let startTime = null;
+    const isFloat = String(target).includes('.');
+    const numericTarget = parseFloat(target);
+    const step = (ts) => {
+      if (!startTime) startTime = ts;
+      const progress = Math.min((ts - startTime) / duration, 1);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      setCount(isFloat ? (eased * numericTarget).toFixed(1) : Math.floor(eased * numericTarget));
+      if (progress < 1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  }, [start, target, duration]);
+  return count;
+}
+
+function StatCard({ stat, index, visible }) {
+  const count = useCountUp(stat.numeric, 1600 + index * 150, visible);
+  const Icon = stat.icon;
+  return (
+    <motion.div
+      whileHover={{ scale: 1.05, y: -3 }}
+      className="glass-card rounded-2xl p-4 text-center border border-white/5 relative overflow-hidden group"
+      style={{ boxShadow: `0 0 20px ${stat.glow}` }}
+    >
+      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-2xl"
+        style={{ background: `radial-gradient(ellipse at center, ${stat.glow}, transparent 70%)` }} />
+      <div className="relative z-10">
+        <Icon size={13} className={`${stat.color} mx-auto mb-2 opacity-60`} />
+        <div className={`font-display font-black text-xl sm:text-2xl ${stat.color} mb-0.5`}>
+          {stat.prefix}{count}{stat.suffix}
+        </div>
+        <div className="text-xs text-gray-500 leading-tight">{stat.label}</div>
+      </div>
+    </motion.div>
+  );
+}
+
+// ─── Animated mesh/gradient orb ──────────────────────────────────────────────
+function GlowOrb() {
+  return (
+    <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
+      {/* Central massive orb */}
+      <motion.div
+        animate={{ scale: [1, 1.08, 1], opacity: [0.4, 0.6, 0.4] }}
+        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        className="absolute w-[700px] h-[700px] rounded-full"
+        style={{
+          background: 'radial-gradient(ellipse at center, rgba(0,212,255,0.12) 0%, rgba(245,166,35,0.06) 50%, transparent 75%)',
+          filter: 'blur(40px)',
+        }}
+      />
+      {/* Secondary ring */}
+      <motion.div
+        animate={{ scale: [1.1, 1, 1.1], opacity: [0.25, 0.45, 0.25] }}
+        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        className="absolute w-[900px] h-[500px] rounded-full"
+        style={{
+          background: 'radial-gradient(ellipse at 40% 60%, rgba(245,166,35,0.1) 0%, transparent 60%)',
+          filter: 'blur(60px)',
+        }}
+      />
+    </div>
+  );
+}
+
+// ─── Floating MacBook ─────────────────────────────────────────────────────────
+function FloatingMacBook() {
+  return (
+    <motion.div
+      initial={{ opacity: 0, y: 60, rotateX: 15 }}
+      animate={{ opacity: 1, y: 0, rotateX: 0 }}
+      transition={{ duration: 1.2, delay: 0.9, ease: [0.25, 0.46, 0.45, 0.94] }}
+      className="relative w-full max-w-lg mx-auto"
+      style={{ perspective: '1200px' }}
+    >
+      {/* Floating animation */}
+      <motion.div
+        animate={{ y: [0, -14, 0] }}
+        transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        className="relative"
+      >
+        {/* Glow underneath */}
+        <div
+          className="absolute -bottom-8 left-1/2 -translate-x-1/2 w-3/4 h-12 rounded-full blur-2xl"
+          style={{ background: 'radial-gradient(ellipse, rgba(0,212,255,0.35) 0%, transparent 70%)' }}
+        />
+
+        {/* MacBook image */}
+        <img
+          src="/macbook-mockup.png"
+          alt="Ingenius SA — Tech Preview"
+          className="w-full h-auto object-contain drop-shadow-2xl"
+          style={{
+            filter: 'drop-shadow(0 30px 60px rgba(0,212,255,0.25)) drop-shadow(0 0 80px rgba(245,166,35,0.1))',
+          }}
+        />
+
+        {/* Floating badges */}
+        <motion.div
+          animate={{ y: [0, -6, 0] }}
+          transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
+          className="absolute -top-4 -right-2 glass-card border border-brand-gold/30 rounded-xl px-3 py-2 flex items-center gap-2 text-xs"
+          style={{ background: 'rgba(245,166,35,0.08)' }}
+        >
+          <span className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+          <span className="text-brand-gold font-semibold">Deploy exitoso</span>
+        </motion.div>
+
+        <motion.div
+          animate={{ y: [0, 6, 0] }}
+          transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+          className="absolute -bottom-2 -left-4 glass-card border border-brand-cyan/30 rounded-xl px-3 py-2 flex items-center gap-2 text-xs"
+          style={{ background: 'rgba(0,212,255,0.06)' }}
+        >
+          <span className="text-brand-cyan">⚡</span>
+          <span className="text-white font-semibold">IA Activada</span>
+        </motion.div>
+      </motion.div>
+    </motion.div>
+  );
+}
+
+import CipherText from './CipherText';
+
+// ─── Main component ───────────────────────────────────────────────────────────
+export default function HeroSection() {
+  const [statsVisible, setStatsVisible] = useState(false);
+
+  const stats = [
+    { numeric: 27,  prefix: '+', suffix: '',   label: 'Proyectos entregados', icon: Rocket, color: 'text-brand-gold', glow: 'rgba(245,166,35,0.25)' },
+    { numeric: 3,   prefix: '',  suffix: ' países', label: 'Clientes internacionales', icon: Star,   color: 'text-brand-cyan', glow: 'rgba(0,212,255,0.25)'  },
+    { numeric: 4.9, prefix: '',  suffix: '★',   label: 'Satisfacción cliente',  icon: Clock,  color: 'text-brand-gold', glow: 'rgba(245,166,35,0.25)' },
+    { numeric: 100, prefix: '',  suffix: '%',   label: 'Código exclusivo tuyo',  icon: Lock,   color: 'text-brand-cyan', glow: 'rgba(0,212,255,0.25)'  },
+  ];
+
+  return (
+    <section
+      id="hero"
+      className="relative min-h-screen flex items-center justify-center overflow-hidden"
+    >
+      {/* Grid bg */}
+      <div className="absolute inset-0 grid-bg opacity-40" />
+
+      {/* Animated glow orb */}
+      <GlowOrb />
+
+      {/* ── CONTENT ── */}
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-16">
+        {/* Urgency chip */}
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.6, delay: 0.2 }}
+          className="flex justify-center mb-8"
+        >
+          <div
+            className="flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-brand-gold/30 text-sm font-medium"
+            style={{ background: 'rgba(245,166,35,0.06)' }}
+          >
+            <span className="relative flex h-2 w-2 flex-shrink-0">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-gold" />
+            </span>
+            <span className="text-brand-gold font-semibold uppercase tracking-wider text-[10px]">
+              <CipherText text="Pocos cupos disponibles" delay={800} />
+            </span>
+            <span className="text-gray-600 hidden sm:inline">·</span>
+            <span className="text-gray-400 hidden sm:inline uppercase text-[10px] tracking-widest">
+               <CipherText text="Este mes" delay={1200} />
+            </span>
+          </div>
+        </motion.div>
+
+        {/* Headline */}
+        <motion.h1
+          initial={{ opacity: 0, y: 32 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.9, delay: 0.35, ease: [0.25, 0.46, 0.45, 0.94] }}
+          className="font-display font-black leading-[1.06] tracking-tight mb-7"
+        >
+          <span className="block text-white text-4xl sm:text-5xl lg:text-6xl xl:text-7xl mb-1 opacity-95">
+            Tu negocio merece
+          </span>
+          <span
+            className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl pb-4 leading-normal"
+            style={{
+              background: 'linear-gradient(135deg, #FFD275 0%, #F5A623 40%, #00D4FF 100%)',
+              WebkitBackgroundClip: 'text',
+              WebkitTextFillColor: 'transparent',
+              backgroundClip: 'text',
+              filter: 'drop-shadow(0 0 24px rgba(245,166,35,0.25))',
+            }}
+          >
+            tecnología de élite.
+          </span>
+        </motion.h1>
+
+        {/* Subheadline */}
+        <motion.p
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.6 }}
+          className="text-gray-400 text-lg sm:text-xl max-w-2xl mx-auto mb-8 leading-relaxed"
+        >
+          Diseñamos, desarrollamos y desplegamos sistemas web con IA que{' '}
+          <span className="text-white font-medium">generan resultados reales</span>
+          {' '}— no solo una bonita apariencia.
+        </motion.p>
+
+        {/* Typing terminal — centered */}
+        <motion.div
+          initial={{ opacity: 0, y: 10 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8 }}
+          className="mb-10 w-full max-w-2xl mx-auto flex justify-center text-left"
+        >
+          <TypingTerminal />
+        </motion.div>
+
+        {/* CTAs */}
+        <motion.div
+          initial={{ opacity: 0, y: 24 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.0 }}
+          className="flex flex-col sm:flex-row gap-4 justify-center items-center mb-16"
+        >
+          <MagneticButton>
+            <motion.button
+              whileHover={{ scale: 1.04 }}
+              whileTap={{ scale: 0.97 }}
+              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className="btn-primary flex items-center gap-3 group px-10 py-5 text-base"
+            >
+              <Sparkles size={17} className="opacity-80" />
+              <CipherText text="Cuéntanos tu idea" delay={1500} />
+              <ArrowRight size={17} className="group-hover:translate-x-1.5 transition-transform" />
+            </motion.button>
+          </MagneticButton>
+
+          <motion.button
+            whileHover={{ scale: 1.03 }}
+            whileTap={{ scale: 0.97 }}
+            onClick={() => document.querySelector('#services')?.scrollIntoView({ behavior: 'smooth' })}
+            className="px-9 py-5 rounded-full text-sm font-semibold text-gray-400 hover:text-white border border-white/10 hover:border-white/25 transition-all duration-300 bg-white/3 hover:bg-white/8"
+          >
+            <CipherText text="Ver nuestros servicios" delay={1800} />
+          </motion.button>
+        </motion.div>
+
+        {/* Stats */}
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 1.15 }}
+          onAnimationComplete={() => setStatsVisible(true)}
+          className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-2xl mx-auto"
+        >
+          {stats.map((stat, i) => (
+            <StatCard key={i} stat={stat} index={i} visible={statsVisible} />
+          ))}
+        </motion.div>
+      </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.6 }}
+        className="absolute bottom-8 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-2 z-10"
+      >
+        <span className="text-xs font-mono text-gray-700 tracking-widest uppercase">Scroll</span>
+        <motion.div animate={{ y: [0, 7, 0] }} transition={{ duration: 1.4, repeat: Infinity }}>
+          <ChevronDown size={18} className="text-brand-cyan opacity-40" />
+        </motion.div>
+      </motion.div>
+    </section>
+  );
+}

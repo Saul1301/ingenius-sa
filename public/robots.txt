@@ -1,0 +1,12 @@
+# Ingenius SA — ingeniusa.com
+# Robots.txt — Permitir indexación completa
+
+User-agent: *
+Allow: /
+
+# Bloquear archivos de build innecesarios
+Disallow: /src/
+Disallow: /*.map$
+
+# Sitemap
+Sitemap: https://ingeniusa.com/sitemap.xml

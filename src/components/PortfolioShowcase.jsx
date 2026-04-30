@@ -144,14 +144,14 @@ function ProjectCard({ project, index }) {
       className="h-full"
     >
       <Tilt
-        tiltMaxAngleX={18}
-        tiltMaxAngleY={18}
+        tiltMaxAngleX={10}
+        tiltMaxAngleY={10}
         perspective={1000}
         transitionSpeed={800}
-        scale={1.03}
+        scale={1.02}
         gyroscope={false}
         glareEnable={true}
-        glareMaxOpacity={0.4}
+        glareMaxOpacity={0.25}
         glareColor={project.barColor}
         glarePosition="all"
         className="h-full"

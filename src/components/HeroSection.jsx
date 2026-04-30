@@ -58,6 +58,8 @@ function GlowOrb() {
         style={{
           background: 'radial-gradient(ellipse at center, rgba(0,212,255,0.12) 0%, rgba(245,166,35,0.06) 50%, transparent 75%)',
           filter: 'blur(40px)',
+          willChange: 'transform, opacity',
+          transform: 'translateZ(0)',
         }}
       />
       {/* Secondary ring */}
@@ -68,6 +70,8 @@ function GlowOrb() {
         style={{
           background: 'radial-gradient(ellipse at 40% 60%, rgba(245,166,35,0.1) 0%, transparent 60%)',
           filter: 'blur(60px)',
+          willChange: 'transform, opacity',
+          transform: 'translateZ(0)',
         }}
       />
     </div>

@@ -46,8 +46,6 @@ export default function ParticleField() {
         ctx.save();
         ctx.globalAlpha = this.currentOpacity;
         ctx.fillStyle = this.color;
-        ctx.shadowColor = this.color;
-        ctx.shadowBlur = 6;
         ctx.beginPath();
         ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
         ctx.fill();
@@ -56,7 +54,8 @@ export default function ParticleField() {
     }
 
     // Create particles
-    for (let i = 0; i < 120; i++) {
+    // REDUCED count for better performance
+    for (let i = 0; i < 60; i++) {
       particles.push(new Particle());
     }
 

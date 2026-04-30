@@ -5,16 +5,19 @@ import React from 'react';
  * Using the new premium logo v2.
  */
 
-export function LogoWithText({ className = '', height = 64 }) {
+export function LogoWithText({ className = '' }) {
   return (
-    <div className={`flex items-center justify-center ${className}`}>
+    <div className={`relative flex items-center justify-center ${className}`}>
       <img
         src="/logo-ingenius.png"
         alt="Ingenius SA"
+        className="w-auto"
         style={{
-          height: `${height * 2.2}px`,
-          width: 'auto',
+          height: '140px', // Much larger height so it's visible
+          maxHeight: 'none',
           objectFit: 'contain',
+          filter: 'drop-shadow(0 4px 12px rgba(0,212,255,0.2))',
+          transform: 'translateY(15px)', // Push down so it overlaps like a banner
         }}
       />
     </div>

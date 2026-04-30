@@ -228,6 +228,8 @@ function ProjectCard({ project, index }) {
             Quiero esto <ArrowRight size={12} />
           </motion.button>
         </div>
+      </div>
+      </div>
       </Tilt>
     </motion.div>
   );

@@ -144,12 +144,16 @@ function ProjectCard({ project, index }) {
       className="h-full"
     >
       <Tilt
-        tiltMaxAngleX={8}
-        tiltMaxAngleY={8}
+        tiltMaxAngleX={18}
+        tiltMaxAngleY={18}
         perspective={1000}
-        transitionSpeed={1000}
-        scale={1.02}
+        transitionSpeed={800}
+        scale={1.03}
         gyroscope={false}
+        glareEnable={true}
+        glareMaxOpacity={0.4}
+        glareColor={project.barColor}
+        glarePosition="all"
         className="h-full"
         onEnter={() => setHovered(true)}
         onLeave={() => setHovered(false)}

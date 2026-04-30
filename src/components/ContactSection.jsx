@@ -171,9 +171,14 @@ export default function ContactSection() {
             Háblanos de tu {' '}
             <span className="gradient-text-gold">próximo proyecto</span>
           </h2>
-          <p className="text-gray-400 max-w-xl mx-auto text-lg">
+          <p className="text-gray-400 max-w-xl mx-auto text-lg mb-8">
             Compártenos los detalles. Evaluaremos la factibilidad técnica y te enviaremos una propuesta sin compromiso.
           </p>
+
+          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-red-500/30 bg-red-500/10 text-xs text-red-200">
+            <div className="w-2 h-2 rounded-full bg-red-500 animate-pulse" />
+            <span className="font-semibold">Alta Demanda:</span> Solo aceptamos 3 proyectos nuevos al mes.
+          </div>
         </motion.div>
 
         <div className="grid grid-cols-1 lg:grid-cols-5 gap-10 lg:gap-16 items-start">

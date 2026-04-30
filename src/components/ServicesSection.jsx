@@ -200,25 +200,47 @@ export default function ServicesSection() {
           ))}
         </div>
 
-        {/* Bottom Message */}
+        {/* Guarantee & Risk Reversal Banner */}
         <motion.div
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4 }}
           viewport={{ once: true }}
-          className="mt-16 text-center"
+          className="mt-20 text-center"
         >
-          <div className="glass-card border border-white/5 rounded-2xl px-8 py-6 inline-flex flex-col sm:flex-row items-center gap-6 max-w-2xl mx-auto">
-            <div className="flex flex-col items-center sm:items-start">
-              <span className="text-xs font-mono tracking-widest uppercase text-gray-600 mb-1">Inversión inicial</span>
-              <span className="font-display font-black text-3xl text-brand-gold">desde $150 <span className="text-lg text-gray-400 font-normal">USD</span></span>
-              <span className="text-xs text-gray-600 mt-0.5">pago único · sin suscripciones forzadas</span>
-            </div>
-            <div className="w-px h-12 bg-white/10 hidden sm:block" />
-            <div className="flex flex-col text-sm text-gray-400 gap-1.5 text-left">
-              <div className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />Todos los proyectos incluyen seguridad por diseño</div>
-              <div className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-brand-cyan" />Soporte y garantía post-entrega incluida</div>
-              <div className="flex items-center gap-2"><span className="w-1.5 h-1.5 rounded-full bg-brand-gold" />El código es 100% tuyo desde el primer día</div>
+          <div className="relative glass-card border border-brand-gold/20 rounded-3xl p-1 overflow-hidden max-w-4xl mx-auto">
+            {/* Animated gradient border effect */}
+            <div className="absolute inset-0 bg-gradient-to-r from-brand-gold/0 via-brand-gold/30 to-brand-cyan/0 animate-shimmer" />
+            
+            <div className="relative bg-[#0A1628] rounded-[22px] px-8 py-8 sm:px-12 sm:py-10 flex flex-col sm:flex-row items-center gap-8 lg:gap-12 text-left">
+              
+              {/* Left: Shield Icon */}
+              <div className="w-20 h-20 flex-shrink-0 rounded-2xl bg-brand-gold/10 border border-brand-gold/20 flex items-center justify-center">
+                <Lock size={36} className="text-brand-gold" />
+              </div>
+
+              {/* Center: The Guarantee text */}
+              <div className="flex-1">
+                <h4 className="font-display font-bold text-2xl text-white mb-2">Garantía <span className="text-brand-gold">Cero Riesgo</span></h4>
+                <p className="text-gray-400 text-sm leading-relaxed mb-4">
+                  El mayor riesgo al contratar desarrollo web es quedar abandonado. Nosotros garantizamos <strong className="text-gray-200">soporte técnico gratuito por 30 días</strong> post-lanzamiento. Si algo falla o no carga a la velocidad prometida, lo arreglamos gratis.
+                </p>
+                <div className="flex flex-wrap items-center gap-4 text-xs font-mono">
+                  <span className="flex items-center gap-1.5 text-brand-gold"><CheckCircle2 size={14}/> 100% de propiedad del código</span>
+                  <span className="flex items-center gap-1.5 text-brand-cyan"><CheckCircle2 size={14}/> Rendimiento A+ garantizado</span>
+                </div>
+              </div>
+
+              {/* Right: Price block */}
+              <div className="sm:border-l border-white/10 sm:pl-8 flex flex-col items-center sm:items-start flex-shrink-0">
+                <span className="text-xs font-mono tracking-widest uppercase text-gray-500 mb-2">Inversión Base</span>
+                <div className="flex items-start gap-1">
+                  <span className="text-lg text-brand-gold font-bold mt-1">$</span>
+                  <span className="font-display font-black text-5xl text-white">150</span>
+                </div>
+                <span className="text-xs text-gray-500 mt-2 bg-white/5 px-3 py-1 rounded-full">Pago único / Sin ataduras</span>
+              </div>
+
             </div>
           </div>
         </motion.div>

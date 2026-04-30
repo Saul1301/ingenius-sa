@@ -134,6 +134,26 @@ function ProjectCard({ project, index }) {
   const [hovered, setHovered] = useState(false);
   const Icon = project.icon;
 
+  // 3D Tilt Effect State
+  const [tilt, setTilt] = useState({ x: 0, y: 0 });
+
+  const handleMouseMove = (e) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    
+    // Calculate rotation (-5 to +5 degrees)
+    const rotateX = ((y / rect.height) - 0.5) * -10;
+    const rotateY = ((x / rect.width) - 0.5) * 10;
+    setTilt({ x: rotateX, y: rotateY });
+  };
+
+  const handleMouseLeave = () => {
+    setHovered(false);
+    setTilt({ x: 0, y: 0 });
+  };
+
   return (
     <motion.div
       ref={ref}
@@ -141,14 +161,18 @@ function ProjectCard({ project, index }) {
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.15 }}
       onHoverStart={() => setHovered(true)}
-      onHoverEnd={() => setHovered(false)}
-      whileHover={{ y: -10, transition: { duration: 0.3 } }}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
       className={`group relative glass-card rounded-3xl border ${project.border} overflow-hidden flex flex-col`}
       style={{
+        transform: hovered 
+          ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(-10px)` 
+          : 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)',
         boxShadow: hovered
-          ? `0 0 60px ${project.glowHover}, 0 0 120px ${project.glow}`
+          ? `0 0 60px ${project.glowHover}, 0 0 120px ${project.glow}, 0 20px 40px rgba(0,0,0,0.4)`
           : `0 0 30px ${project.glow}`,
-        transition: 'box-shadow 0.4s ease',
+        transition: hovered ? 'box-shadow 0.4s ease' : 'all 0.5s ease',
+        willChange: 'transform',
       }}
     >
       {/* Gradient bg */}

@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView } from 'framer-motion';
-import { Globe, LayoutDashboard, Bot, ArrowRight, Sparkles, BarChart3, Lock } from 'lucide-react';
+import { Globe, LayoutDashboard, Bot, ArrowRight, Sparkles, BarChart3, Lock, CheckCircle2 } from 'lucide-react';
 import SpotlightCard from './SpotlightCard';
 
 const services = [

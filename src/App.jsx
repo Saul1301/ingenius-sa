@@ -9,7 +9,6 @@ import ForWhomSection from './components/ForWhomSection';
 import PortfolioShowcase from './components/PortfolioShowcase';
 import TestimonialsSection from './components/TestimonialsSection';
 import ServicesSection from './components/ServicesSection';
-import AboutSection from './components/AboutSection';
 import TypingTerminal from './components/TypingTerminal';
 import ArchitectureSlider from './components/ArchitectureSlider';
 import BentoSection from './components/BentoSection';
@@ -41,8 +40,6 @@ export default function App() {
         {/* 2. Authority — Tira de tecnologías */}
         <MarqueeStrip />
 
-        {/* 3. Nosotros — Quiénes somos */}
-        <AboutSection />
 
         {/* 4. Bento — Infraestructura y Autoridad */}
         <BentoSection />

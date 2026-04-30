@@ -20,7 +20,6 @@ import FAQSection from './components/FAQSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
-import InsightsSection from './components/InsightsSection';
 import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
@@ -66,8 +65,6 @@ export default function App() {
         {/* 7. Process — Cómo empezamos */}
         <HowWeStartSection />
 
-        {/* 8. Insights — Blog de posicionamiento SEO */}
-        <InsightsSection />
 
         {/* 9. Objections — FAQ */}
         <FAQSection />

@@ -45,7 +45,7 @@ export default function Navbar() {
             href="#hero"
             onClick={(e) => { e.preventDefault(); handleNav('#hero'); }}
             whileHover={{ scale: 1.03 }}
-            className="flex items-center relative z-50 mt-4 lg:mt-8"
+            className="flex items-center"
           >
             <LogoWithText />
           </motion.a>

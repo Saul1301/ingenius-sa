@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
 import { motion, useInView, AnimatePresence } from 'framer-motion';
 import { ExternalLink, Globe, LayoutDashboard, Bot, ArrowRight, Tag } from 'lucide-react';
+import Tilt from 'react-parallax-tilt';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // 🖼️  CONFIGURA TUS PROYECTOS AQUÍ
@@ -134,65 +135,52 @@ function ProjectCard({ project, index }) {
   const [hovered, setHovered] = useState(false);
   const Icon = project.icon;
 
-  // 3D Tilt Effect State
-  const [tilt, setTilt] = useState({ x: 0, y: 0 });
-
-  const handleMouseMove = (e) => {
-    if (!ref.current) return;
-    const rect = ref.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    
-    // Calculate rotation (-5 to +5 degrees)
-    const rotateX = ((y / rect.height) - 0.5) * -10;
-    const rotateY = ((x / rect.width) - 0.5) * 10;
-    setTilt({ x: rotateX, y: rotateY });
-  };
-
-  const handleMouseLeave = () => {
-    setHovered(false);
-    setTilt({ x: 0, y: 0 });
-  };
-
   return (
     <motion.div
       ref={ref}
       initial={{ opacity: 0, y: 60 }}
       animate={isInView ? { opacity: 1, y: 0 } : {}}
       transition={{ duration: 0.7, delay: index * 0.15 }}
-      onHoverStart={() => setHovered(true)}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className={`group relative glass-card rounded-3xl border ${project.border} overflow-hidden flex flex-col`}
-      style={{
-        transform: hovered 
-          ? `perspective(1000px) rotateX(${tilt.x}deg) rotateY(${tilt.y}deg) translateY(-10px)` 
-          : 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateY(0px)',
-        boxShadow: hovered
-          ? `0 0 60px ${project.glowHover}, 0 0 120px ${project.glow}, 0 20px 40px rgba(0,0,0,0.4)`
-          : `0 0 30px ${project.glow}`,
-        transition: hovered ? 'box-shadow 0.4s ease' : 'all 0.5s ease',
-        willChange: 'transform',
-      }}
+      className="h-full"
     >
-      {/* Gradient bg */}
-      <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
+      <Tilt
+        tiltMaxAngleX={8}
+        tiltMaxAngleY={8}
+        perspective={1000}
+        transitionSpeed={1000}
+        scale={1.02}
+        gyroscope={false}
+        className="h-full"
+        onEnter={() => setHovered(true)}
+        onLeave={() => setHovered(false)}
+      >
+        <div
+          className={`h-full group relative glass-card rounded-3xl border ${project.border} overflow-hidden flex flex-col`}
+          style={{
+            boxShadow: hovered
+              ? `0 0 60px ${project.glowHover}, 0 0 120px ${project.glow}`
+              : `0 0 30px ${project.glow}`,
+            transition: 'box-shadow 0.4s ease',
+          }}
+        >
+          {/* Gradient bg */}
+          <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-60 group-hover:opacity-100 transition-opacity duration-500`} />
 
-      {/* Scan line on hover */}
-      <AnimatePresence>
-        {hovered && (
-          <motion.div
-            initial={{ top: 0 }}
-            animate={{ top: '100%' }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 1.8, ease: 'linear', repeat: Infinity }}
-            className="absolute left-0 right-0 h-px pointer-events-none z-20"
-            style={{ background: `linear-gradient(to right, transparent, ${project.glowHover}, transparent)` }}
-          />
-        )}
-      </AnimatePresence>
+          {/* Scan line on hover */}
+          <AnimatePresence>
+            {hovered && (
+              <motion.div
+                initial={{ top: 0 }}
+                animate={{ top: '100%' }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 1.8, ease: 'linear', repeat: Infinity }}
+                className="absolute left-0 right-0 h-px pointer-events-none z-20"
+                style={{ background: `linear-gradient(to right, transparent, ${project.glowHover}, transparent)` }}
+              />
+            )}
+          </AnimatePresence>
 
-      <div className="relative z-10 p-7 flex flex-col h-full">
+          <div className="relative z-10 p-7 flex flex-col h-full">
         {/* Tag & Icon */}
         <div className="flex items-center justify-between mb-5">
           <span className={`text-xs font-mono tracking-widest uppercase ${project.iconColor} opacity-70 border border-current/20 rounded-full px-3 py-1 flex items-center gap-1.5`}>
@@ -236,7 +224,7 @@ function ProjectCard({ project, index }) {
             Quiero esto <ArrowRight size={12} />
           </motion.button>
         </div>
-      </div>
+      </Tilt>
     </motion.div>
   );
 }

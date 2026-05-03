@@ -3,6 +3,7 @@ import { motion, useMotionValue, useSpring } from 'framer-motion';
 import { ArrowRight, ChevronDown, Sparkles, Rocket, Clock, Star, Lock } from 'lucide-react';
 import MagneticButton from './MagneticButton';
 import TypingTerminal from './TypingTerminal';
+import HeroCube from './HeroCube';
 
 // ─── Count-up hook ────────────────────────────────────────────────────────────
 function useCountUp(target, duration = 1800, start = false) {
@@ -50,28 +51,40 @@ function StatCard({ stat, index, visible }) {
 function GlowOrb() {
   return (
     <div className="absolute inset-0 flex items-center justify-center pointer-events-none overflow-hidden">
-      {/* Central massive orb */}
+      {/* Central massive orb — blue */}
       <motion.div
-        animate={{ scale: [1, 1.08, 1], opacity: [0.4, 0.6, 0.4] }}
-        transition={{ duration: 6, repeat: Infinity, ease: 'easeInOut' }}
+        animate={{ scale: [1, 1.08, 1], opacity: [0.4, 0.65, 0.4] }}
+        transition={{ duration: 7, repeat: Infinity, ease: 'easeInOut' }}
         className="absolute w-[700px] h-[700px] rounded-full"
         style={{
-          background: 'radial-gradient(ellipse at center, rgba(0,212,255,0.12) 0%, rgba(245,166,35,0.06) 50%, transparent 75%)',
-          filter: 'blur(40px)',
+          background: 'radial-gradient(ellipse at center, rgba(6,182,212,0.13) 0%, rgba(59,130,246,0.08) 50%, transparent 75%)',
+          filter: 'blur(50px)',
           willChange: 'transform, opacity',
           transform: 'translateZ(0)',
         }}
       />
-      {/* Secondary ring */}
+      {/* Secondary — violet */}
       <motion.div
-        animate={{ scale: [1.1, 1, 1.1], opacity: [0.25, 0.45, 0.25] }}
-        transition={{ duration: 8, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
+        animate={{ scale: [1.1, 1, 1.1], opacity: [0.2, 0.4, 0.2] }}
+        transition={{ duration: 9, repeat: Infinity, ease: 'easeInOut', delay: 1.5 }}
         className="absolute w-[900px] h-[500px] rounded-full"
         style={{
-          background: 'radial-gradient(ellipse at 40% 60%, rgba(245,166,35,0.1) 0%, transparent 60%)',
+          background: 'radial-gradient(ellipse at 40% 60%, rgba(139,92,246,0.1) 0%, transparent 60%)',
           filter: 'blur(60px)',
           willChange: 'transform, opacity',
           transform: 'translateZ(0)',
+        }}
+      />
+      {/* Tertiary — blue bright spot top-right */}
+      <motion.div
+        animate={{ scale: [1, 1.15, 1], opacity: [0.15, 0.3, 0.15] }}
+        transition={{ duration: 11, repeat: Infinity, ease: 'easeInOut', delay: 3 }}
+        className="absolute w-[500px] h-[500px] rounded-full"
+        style={{
+          right: '-10%', top: '-20%',
+          background: 'radial-gradient(ellipse, rgba(59,130,246,0.12) 0%, transparent 70%)',
+          filter: 'blur(40px)',
+          willChange: 'transform, opacity',
         }}
       />
     </div>
@@ -142,10 +155,10 @@ export default function HeroSection() {
   const [statsVisible, setStatsVisible] = useState(false);
 
   const stats = [
-    { numeric: 27,  prefix: '+', suffix: '',   label: 'Proyectos entregados', icon: Rocket, color: 'text-brand-gold', glow: 'rgba(245,166,35,0.25)' },
-    { numeric: 3,   prefix: '',  suffix: ' países', label: 'Clientes internacionales', icon: Star,   color: 'text-brand-cyan', glow: 'rgba(0,212,255,0.25)'  },
-    { numeric: 4.9, prefix: '',  suffix: '★',   label: 'Satisfacción cliente',  icon: Clock,  color: 'text-brand-gold', glow: 'rgba(245,166,35,0.25)' },
-    { numeric: 100, prefix: '',  suffix: '%',   label: 'Código exclusivo tuyo',  icon: Lock,   color: 'text-brand-cyan', glow: 'rgba(0,212,255,0.25)'  },
+    { numeric: 27,  prefix: '+', suffix: '',   label: 'Proyectos entregados',    icon: Rocket, color: 'text-brand-blue-light', glow: 'rgba(59,130,246,0.25)'   },
+    { numeric: 3,   prefix: '',  suffix: ' países', label: 'Clientes internacionales', icon: Star,   color: 'text-brand-cyan',       glow: 'rgba(6,182,212,0.25)'   },
+    { numeric: 4.9, prefix: '',  suffix: '★',   label: 'Satisfacción cliente',   icon: Clock,  color: 'text-brand-violet-light', glow: 'rgba(139,92,246,0.25)'  },
+    { numeric: 100, prefix: '',  suffix: '%',   label: 'Código exclusivo tuyo',  icon: Lock,   color: 'text-brand-cyan',         glow: 'rgba(6,182,212,0.25)'   },
   ];
 
   return (
@@ -154,7 +167,10 @@ export default function HeroSection() {
       className="relative min-h-screen flex items-center justify-center overflow-hidden"
     >
       {/* Grid bg */}
-      <div className="absolute inset-0 grid-bg opacity-40" />
+      <div className="absolute inset-0 grid-bg opacity-30" />
+
+      {/* Hero Cube 3D — background */}
+      <HeroCube />
 
       {/* Animated glow orb */}
       <GlowOrb />
@@ -169,14 +185,14 @@ export default function HeroSection() {
           className="flex justify-center mb-8"
         >
           <div
-            className="flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-brand-gold/30 text-sm font-medium"
-            style={{ background: 'rgba(245,166,35,0.06)' }}
+            className="flex items-center gap-2.5 px-5 py-2.5 rounded-full border border-brand-cyan/30 text-sm font-medium"
+            style={{ background: 'rgba(6,182,212,0.06)' }}
           >
             <span className="relative flex h-2 w-2 flex-shrink-0">
-              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-gold opacity-75" />
-              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-gold" />
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-brand-cyan opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-brand-cyan" />
             </span>
-            <span className="text-brand-gold font-semibold uppercase tracking-wider text-[10px]">
+            <span className="text-brand-cyan font-semibold uppercase tracking-wider text-[10px]">
               <CipherText text="Pocos cupos disponibles" delay={800} />
             </span>
             <span className="text-gray-600 hidden sm:inline">·</span>
@@ -199,11 +215,11 @@ export default function HeroSection() {
           <span
             className="block text-5xl sm:text-6xl lg:text-7xl xl:text-8xl pb-4 leading-normal"
             style={{
-              background: 'linear-gradient(135deg, #FFD275 0%, #F5A623 40%, #00D4FF 100%)',
+              background: 'linear-gradient(135deg, #60A5FA 0%, #06B6D4 45%, #8B5CF6 100%)',
               WebkitBackgroundClip: 'text',
               WebkitTextFillColor: 'transparent',
               backgroundClip: 'text',
-              filter: 'drop-shadow(0 0 24px rgba(245,166,35,0.25))',
+              filter: 'drop-shadow(0 0 30px rgba(6,182,212,0.3))',
             }}
           >
             tecnología de élite.

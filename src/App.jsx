@@ -19,11 +19,12 @@ import FAQSection from './components/FAQSection';
 import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
+import TechCubeSection from './components/TechCubeSection';
 import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
   return (
-    <div className="relative min-h-screen bg-brand-dark">
+    <div className="relative min-h-screen" style={{ background: '#030712' }}>
       {/* Global Custom Cursor */}
       <GlobalCursor />
 
@@ -40,6 +41,8 @@ export default function App() {
         {/* 2. Authority — Tira de tecnologías */}
         <MarqueeStrip />
 
+        {/* 3. Tech Cube — Stack & Architecture */}
+        <TechCubeSection />
 
         {/* 4. Bento — Infraestructura y Autoridad */}
         <BentoSection />

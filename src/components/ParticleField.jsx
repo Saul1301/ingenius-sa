@@ -28,7 +28,8 @@ export default function ParticleField() {
         this.speedX = (Math.random() - 0.5) * 0.3;
         this.speedY = (Math.random() - 0.5) * 0.3;
         this.opacity = Math.random() * 0.5 + 0.1;
-        this.color = Math.random() > 0.6 ? '#F5A623' : '#00D4FF';
+        const r = Math.random();
+        this.color = r > 0.65 ? '#3B82F6' : r > 0.35 ? '#06B6D4' : '#8B5CF6';
         this.life = 0;
         this.maxLife = Math.random() * 300 + 100;
       }
@@ -67,7 +68,7 @@ export default function ParticleField() {
           if (dist < 100) {
             ctx.save();
             ctx.globalAlpha = (1 - dist / 100) * 0.08;
-            ctx.strokeStyle = '#00D4FF';
+            ctx.strokeStyle = '#06B6D4';
             ctx.lineWidth = 0.5;
             ctx.beginPath();
             ctx.moveTo(p1.x, p1.y);

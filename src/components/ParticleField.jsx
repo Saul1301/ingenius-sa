@@ -54,9 +54,8 @@ export default function ParticleField() {
       }
     }
 
-    // Create particles
-    // REDUCED count for better performance
-    for (let i = 0; i < 60; i++) {
+    // REDUCED count for performance
+    for (let i = 0; i < 35; i++) {
       particles.push(new Particle());
     }
 

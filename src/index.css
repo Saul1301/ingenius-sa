@@ -85,10 +85,11 @@
 
   /* ── Glass card ──────────────────────────────────────────────────────────── */
   .glass-card {
-    background: rgba(8, 15, 32, 0.65);
-    backdrop-filter: blur(20px);
-    -webkit-backdrop-filter: blur(20px);
+    background: rgba(8, 15, 32, 0.70);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
     border: 1px solid rgba(255, 255, 255, 0.06);
+    will-change: transform;
   }
 
   /* ── Gradient texts ──────────────────────────────────────────────────────── */

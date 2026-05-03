@@ -44,7 +44,7 @@ function CSS3DCube({ size = 180 }) {
               alignItems: 'center',
               justifyContent: 'center',
               flexDirection: 'column',
-              backdropFilter: 'blur(4px)',
+              // NO backdropFilter — very expensive on 6 faces simultaneously
             }}
           >
             {/* Corner accents */}
@@ -142,13 +142,12 @@ function TechBadge({ tech, delay, x, y }) {
         animate={{ y: [0, -8, 0] }}
         transition={{ duration: 3 + delay, repeat: Infinity, ease: 'easeInOut' }}
         style={{
-          background: 'rgba(8,15,32,0.85)',
-          border: `1px solid ${tech.glow.replace('0.4', '0.5')}`,
+          background: 'rgba(8,15,32,0.92)',
+          border: `1px solid ${tech.glow.replace('0.4', '0.4')}`,
           borderRadius: 10,
           padding: '6px 14px',
           display: 'flex', alignItems: 'center', gap: 7,
-          backdropFilter: 'blur(10px)',
-          boxShadow: `0 0 20px ${tech.glow}`,
+          // no backdropFilter on badges — costly at 6 simultaneous
         }}
       >
         <span style={{
@@ -175,7 +174,7 @@ function TechBadge({ tech, delay, x, y }) {
 // ─── Main TechCubeSection ─────────────────────────────────────────────────────
 export default function TechCubeSection() {
   const ref = useRef(null);
-  const inView = useInView(ref, { once: false, margin: '-100px' });
+  const inView = useInView(ref, { once: true, margin: '-80px' });
 
   const badgePositions = [
     { x: 5,  y: 15 }, { x: 75, y: 10 }, { x: 80, y: 70 },
@@ -308,13 +307,12 @@ export default function TechCubeSection() {
             className="relative flex items-center justify-center"
             style={{ minHeight: 480 }}
           >
-            {/* Glow center */}
+            {/* Glow center — CSS only, no expensive blur filter */}
             <div style={{
               position: 'absolute',
               width: 320, height: 320,
               borderRadius: '50%',
-              background: 'radial-gradient(ellipse, rgba(6,182,212,0.12) 0%, rgba(59,130,246,0.08) 50%, transparent 70%)',
-              filter: 'blur(30px)',
+              background: 'radial-gradient(ellipse, rgba(6,182,212,0.09) 0%, rgba(59,130,246,0.05) 50%, transparent 70%)',
             }} />
 
             {/* Outer ring */}
@@ -348,11 +346,10 @@ export default function TechCubeSection() {
               style={{
                 position: 'absolute',
                 bottom: 20, right: 20,
-                background: 'rgba(8,15,32,0.9)',
+                background: 'rgba(8,15,32,0.95)',
                 border: '1px solid rgba(6,182,212,0.25)',
                 borderRadius: 12,
                 padding: '10px 16px',
-                backdropFilter: 'blur(10px)',
               }}
             >
               <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>

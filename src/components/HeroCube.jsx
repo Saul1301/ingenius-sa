@@ -1,248 +1,162 @@
 import React, { useEffect, useRef } from 'react';
 
-// ─── Pure Canvas 2D → 3D wireframe cube ────────────────────────────────────────
+// ─── Optimized 3D wireframe cube — NO canvas filters, throttled RAF ─────────────
 export default function HeroCube() {
   const canvasRef = useRef(null);
 
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { alpha: true });
     let animId;
     let angleX = 0.3;
     let angleY = 0;
-    let angleZ = 0.1;
+    let frameCount = 0;
 
     const resize = () => {
       canvas.width  = canvas.offsetWidth;
       canvas.height = canvas.offsetHeight;
     };
     resize();
-    window.addEventListener('resize', resize);
+
+    let resizeTimer;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(resize, 200);
+    };
+    window.addEventListener('resize', onResize);
 
     // Cube vertices (unit cube centered at origin)
     const baseVertices = [
-      [-1,-1,-1], [ 1,-1,-1], [ 1, 1,-1], [-1, 1,-1], // back face
-      [-1,-1, 1], [ 1,-1, 1], [ 1, 1, 1], [-1, 1, 1], // front face
+      [-1,-1,-1], [ 1,-1,-1], [ 1, 1,-1], [-1, 1,-1],
+      [-1,-1, 1], [ 1,-1, 1], [ 1, 1, 1], [-1, 1, 1],
     ];
 
-    // Edges: pairs of vertex indices
     const edges = [
-      [0,1],[1,2],[2,3],[3,0], // back
-      [4,5],[5,6],[6,7],[7,4], // front
-      [0,4],[1,5],[2,6],[3,7], // sides
+      [0,1],[1,2],[2,3],[3,0],
+      [4,5],[5,6],[6,7],[7,4],
+      [0,4],[1,5],[2,6],[3,7],
     ];
 
-    // Inner cube (smaller, for depth effect)
-    const innerScale = 0.4;
-
-    // Project 3D → 2D
     const project = (x, y, z, scale, cx, cy) => {
-      const fov = 500;
       const depth = z + 3;
       return {
-        x: cx + (x * fov) / depth * scale,
-        y: cy + (y * fov) / depth * scale,
+        x: cx + (x * 500) / depth * scale,
+        y: cy + (y * 500) / depth * scale,
       };
     };
 
-    // Rotate point around axes
-    const rotate = (x, y, z, ax, ay, az) => {
+    const rotate = (x, y, z, ax, ay) => {
       // Rotate X
-      let y1 = y * Math.cos(ax) - z * Math.sin(ax);
-      let z1 = y * Math.sin(ax) + z * Math.cos(ax);
+      const y1 = y * Math.cos(ax) - z * Math.sin(ax);
+      const z1 = y * Math.sin(ax) + z * Math.cos(ax);
       // Rotate Y
-      let x2 = x  * Math.cos(ay) + z1 * Math.sin(ay);
-      let z2 = -x * Math.sin(ay) + z1 * Math.cos(ay);
-      // Rotate Z
-      let x3 =  x2 * Math.cos(az) - y1 * Math.sin(az);
-      let y3 =  x2 * Math.sin(az) + y1 * Math.cos(az);
-      return [x3, y3, z2];
+      const x2 =  x  * Math.cos(ay) + z1 * Math.sin(ay);
+      const z2 = -x  * Math.sin(ay) + z1 * Math.cos(ay);
+      return [x2, y1, z2];
     };
 
-    const drawCube = (scale, opacity, colorA, colorB, glowAlpha) => {
+    const drawCube = (scale) => {
       const W  = canvas.width;
       const H  = canvas.height;
       const cx = W / 2;
       const cy = H / 2;
 
-      // Rotate all vertices
-      const rotated = baseVertices.map(([x, y, z]) =>
-        rotate(x, y, z, angleX, angleY, angleZ)
-      );
-
-      // Project to 2D
-      const projected = rotated.map(([x, y, z]) =>
-        project(x, y, z, scale, cx, cy)
-      );
-
-      // Draw edges
-      edges.forEach(([a, b], i) => {
-        const pa = projected[a];
-        const pb = projected[b];
-        const isBack = rotated[a][2] < 0 && rotated[b][2] < 0;
-        const alpha = isBack ? opacity * 0.3 : opacity;
-
-        // Glow pass
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(pa.x, pa.y);
-        ctx.lineTo(pb.x, pb.y);
-        const grad = ctx.createLinearGradient(pa.x, pa.y, pb.x, pb.y);
-        grad.addColorStop(0, colorA.replace(')', `, ${alpha * glowAlpha})`).replace('rgb', 'rgba'));
-        grad.addColorStop(1, colorB.replace(')', `, ${alpha * glowAlpha})`).replace('rgb', 'rgba'));
-        ctx.strokeStyle = grad;
-        ctx.lineWidth = 6;
-        ctx.filter = 'blur(4px)';
-        ctx.stroke();
-        ctx.restore();
-
-        // Sharp line
-        ctx.save();
-        ctx.beginPath();
-        ctx.moveTo(pa.x, pa.y);
-        ctx.lineTo(pb.x, pb.y);
-        const grad2 = ctx.createLinearGradient(pa.x, pa.y, pb.x, pb.y);
-        grad2.addColorStop(0, colorA.replace(')', `, ${alpha})`).replace('rgb', 'rgba'));
-        grad2.addColorStop(1, colorB.replace(')', `, ${alpha})`).replace('rgb', 'rgba'));
-        ctx.strokeStyle = grad2;
-        ctx.lineWidth = 1.2;
-        ctx.filter = 'none';
-        ctx.stroke();
-        ctx.restore();
-      });
-
-      // Draw vertex dots
-      projected.forEach((p, i) => {
-        const isBack = rotated[i][2] < 0;
-        const dotAlpha = isBack ? opacity * 0.2 : opacity * 0.9;
-        ctx.save();
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, 3, 0, Math.PI * 2);
-        ctx.fillStyle = `rgba(6,182,212,${dotAlpha})`;
-        ctx.shadowBlur = 10;
-        ctx.shadowColor = '#06B6D4';
-        ctx.fill();
-        ctx.restore();
-      });
-    };
-
-    const drawInnerCube = (scale) => {
-      const W  = canvas.width;
-      const H  = canvas.height;
-      const cx = W / 2;
-      const cy = H / 2;
-      const iScale = scale * innerScale;
-
-      const rotated = baseVertices.map(([x, y, z]) =>
-        rotate(x, y, z, -angleX * 1.3, -angleY * 1.5, angleZ * 0.7)
-      );
-
-      const projected = rotated.map(([x, y, z]) =>
-        project(x, y, z, iScale, cx, cy)
-      );
+      const rotated   = baseVertices.map(([x, y, z]) => rotate(x, y, z, angleX, angleY));
+      const projected = rotated.map(([x, y, z])      => project(x, y, z, scale, cx, cy));
 
       edges.forEach(([a, b]) => {
         const pa = projected[a];
         const pb = projected[b];
-        ctx.save();
+        const zAvg = (rotated[a][2] + rotated[b][2]) / 2;
+        // Back faces are dimmer
+        const alpha = zAvg < 0 ? 0.12 : 0.45;
+
         ctx.beginPath();
         ctx.moveTo(pa.x, pa.y);
         ctx.lineTo(pb.x, pb.y);
-        ctx.strokeStyle = `rgba(139,92,246,0.25)`;
-        ctx.lineWidth = 0.8;
+        // Alternate edge color between cyan and blue
+        ctx.strokeStyle = zAvg < 0
+          ? `rgba(6,182,212,${alpha})`
+          : `rgba(96,165,250,${alpha})`;
+        ctx.lineWidth = zAvg < 0 ? 0.6 : 1.0;
         ctx.stroke();
-        ctx.restore();
+      });
+
+      // Vertex dots — only front-facing
+      projected.forEach((p, i) => {
+        if (rotated[i][2] < 0) return;
+        ctx.beginPath();
+        ctx.arc(p.x, p.y, 2.5, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(6,182,212,0.7)';
+        ctx.fill();
       });
     };
 
-    const drawOrbitRings = (scale) => {
-      const W  = canvas.width;
-      const H  = canvas.height;
-      const cx = W / 2;
-      const cy = H / 2;
+    const drawOrbits = (scale) => {
+      const cx = canvas.width  / 2;
+      const cy = canvas.height / 2;
+      const t  = Date.now() / 1000;
 
-      // Outer ellipse ring 1
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(angleY * 0.4);
-      ctx.scale(1, 0.3);
+      // Ring 1 — ellipse
       ctx.beginPath();
-      ctx.arc(0, 0, scale * 1.45, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(59,130,246,0.12)';
+      ctx.ellipse(cx, cy, scale * 1.5, scale * 0.4, angleY * 0.3, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(59,130,246,0.07)';
+      ctx.setLineDash([4, 10]);
       ctx.lineWidth = 1;
-      ctx.setLineDash([4, 8]);
       ctx.stroke();
-      ctx.restore();
+      ctx.setLineDash([]);
 
-      // Outer ellipse ring 2
-      ctx.save();
-      ctx.translate(cx, cy);
-      ctx.rotate(-angleY * 0.6 + Math.PI / 4);
-      ctx.scale(0.3, 1);
+      // Ring 2 — vertical ellipse
       ctx.beginPath();
-      ctx.arc(0, 0, scale * 1.6, 0, Math.PI * 2);
-      ctx.strokeStyle = 'rgba(139,92,246,0.10)';
+      ctx.ellipse(cx, cy, scale * 0.35, scale * 1.55, -angleY * 0.5, 0, Math.PI * 2);
+      ctx.strokeStyle = 'rgba(139,92,246,0.06)';
+      ctx.setLineDash([2, 14]);
       ctx.lineWidth = 1;
-      ctx.setLineDash([2, 12]);
       ctx.stroke();
-      ctx.restore();
+      ctx.setLineDash([]);
 
-      // Moving dot on ring 1
-      const t = Date.now() / 1000;
-      const orbitX = cx + Math.cos(t * 0.6) * scale * 1.45;
-      const orbitY = cy + Math.sin(t * 0.6) * scale * 0.435;
-      ctx.save();
+      // Moving dot 1 (cyan)
+      const d1x = cx + Math.cos(t * 0.5) * scale * 1.5;
+      const d1y = cy + Math.sin(t * 0.5) * scale * 0.4;
       ctx.beginPath();
-      ctx.arc(orbitX, orbitY, 4, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(6,182,212,0.9)';
-      ctx.shadowBlur = 12;
-      ctx.shadowColor = '#06B6D4';
+      ctx.arc(d1x, d1y, 3, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(6,182,212,0.85)';
       ctx.fill();
-      ctx.restore();
 
-      // Moving dot on ring 2
-      const orbitX2 = cx + Math.cos(-t * 0.9 + 2) * scale * 0.48;
-      const orbitY2 = cy + Math.sin(-t * 0.9 + 2) * scale * 1.6;
-      ctx.save();
+      // Moving dot 2 (violet)
+      const d2x = cx + Math.cos(-t * 0.8 + 2) * scale * 0.35;
+      const d2y = cy + Math.sin(-t * 0.8 + 2) * scale * 1.55;
       ctx.beginPath();
-      ctx.arc(orbitX2, orbitY2, 3, 0, Math.PI * 2);
-      ctx.fillStyle = 'rgba(139,92,246,0.9)';
-      ctx.shadowBlur = 10;
-      ctx.shadowColor = '#8B5CF6';
+      ctx.arc(d2x, d2y, 2.5, 0, Math.PI * 2);
+      ctx.fillStyle = 'rgba(139,92,246,0.8)';
       ctx.fill();
-      ctx.restore();
     };
 
-    // Main animation loop
     const animate = () => {
+      animId = requestAnimationFrame(animate);
+
+      // Throttle: only render every 2 frames (≈30fps) — still silky smooth visually
+      frameCount++;
+      if (frameCount % 2 !== 0) return;
+
       ctx.clearRect(0, 0, canvas.width, canvas.height);
 
-      const W = canvas.width;
-      const H = canvas.height;
-      const scale = Math.min(W, H) * 0.32;
+      const scale = Math.min(canvas.width, canvas.height) * 0.30;
 
-      // Draw outer cube
-      drawCube(scale, 0.55, 'rgb(6,182,212)', 'rgb(59,130,246)', 1.5);
+      drawOrbits(scale);
+      drawCube(scale);
 
-      // Draw inner cube
-      drawInnerCube(scale);
-
-      // Draw orbiting rings + dots
-      drawOrbitRings(scale);
-
-      angleX += 0.0018;
-      angleY += 0.004;
-      angleZ += 0.0007;
-
-      animId = requestAnimationFrame(animate);
+      angleX += 0.0014;
+      angleY += 0.003;
     };
 
     animate();
 
     return () => {
       cancelAnimationFrame(animId);
-      window.removeEventListener('resize', resize);
+      window.removeEventListener('resize', onResize);
+      clearTimeout(resizeTimer);
     };
   }, []);
 
@@ -256,7 +170,8 @@ export default function HeroCube() {
         height: '100%',
         pointerEvents: 'none',
         zIndex: 1,
-        opacity: 0.75,
+        opacity: 0.65,
+        willChange: 'contents',
       }}
     />
   );

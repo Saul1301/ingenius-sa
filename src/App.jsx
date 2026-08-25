@@ -21,9 +21,40 @@ import ContactSection from './components/ContactSection';
 import Footer from './components/Footer';
 import WhatsAppButton from './components/WhatsAppButton';
 import TechCubeSection from './components/TechCubeSection';
+import PricingCatalogPage from './components/PricingCatalogPage';
 import { Analytics } from '@vercel/analytics/react';
 
 export default function App() {
+  const [isCatalogView, setIsCatalogView] = React.useState(false);
+
+  React.useEffect(() => {
+    const checkView = () => {
+      const hash = window.location.hash;
+      const search = window.location.search;
+      setIsCatalogView(hash === '#catalogo' || hash === '#precios' || search.includes('view=catalogo') || search.includes('view=precios'));
+    };
+
+    checkView();
+    window.addEventListener('hashchange', checkView);
+    window.addEventListener('popstate', checkView);
+    return () => {
+      window.removeEventListener('hashchange', checkView);
+      window.removeEventListener('popstate', checkView);
+    };
+  }, []);
+
+  if (isCatalogView) {
+    return (
+      <div className="relative min-h-screen" style={{ background: '#030712' }}>
+        <GlobalCursor />
+        <ParticleField />
+        <PricingCatalogPage />
+        <WhatsAppButton />
+        <Analytics />
+      </div>
+    );
+  }
+
   return (
     <div className="relative min-h-screen" style={{ background: '#030712' }}>
       {/* Global Custom Cursor */}

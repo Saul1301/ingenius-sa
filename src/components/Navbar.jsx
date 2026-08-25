@@ -103,29 +103,31 @@ export default function Navbar() {
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
-            initial={{ opacity: 0, height: 0 }}
-            animate={{ opacity: 1, height: 'auto' }}
-            exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-[#060F1F] shadow-2xl border-b border-white/10 relative z-50 overflow-hidden"
+            initial={{ opacity: 0, y: -10 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -10 }}
+            transition={{ duration: 0.2 }}
+            className="lg:hidden bg-[#060F1F] shadow-2xl border-b border-cyan-500/20 relative z-50"
           >
-            <div className="px-6 py-6 flex flex-col gap-4">
+            <div className="px-6 py-6 flex flex-col gap-3">
               {navLinks.map((link) => (
                 <a
                   key={link.href}
                   href={link.href}
-                  onClick={(e) => scrollToSection(e, link.href)}
-                  className="text-left text-base font-semibold text-gray-200 hover:text-brand-cyan transition-colors py-3 border-b border-white/5 flex items-center justify-between"
+                  onClick={() => setMobileOpen(false)}
+                  className="text-left text-base font-semibold text-gray-200 hover:text-brand-cyan active:text-brand-cyan transition-colors py-3 border-b border-white/5 flex items-center justify-between"
                 >
                   <span>{link.label}</span>
-                  <span className="text-gray-600 text-xs">→</span>
+                  <span className="text-cyan-400 font-mono text-sm">→</span>
                 </a>
               ))}
-              <button
-                onClick={(e) => scrollToSection(e, '#contact')}
-                className="btn-primary text-sm mt-3 w-full py-4 text-center font-bold"
+              <a
+                href="#contact"
+                onClick={() => setMobileOpen(false)}
+                className="btn-primary text-sm mt-3 w-full py-4 text-center font-bold block"
               >
                 Cuéntanos tu Idea
-              </button>
+              </a>
             </div>
           </motion.div>
         )}

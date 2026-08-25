@@ -178,7 +178,7 @@ export default function HeroSection() {
       {/* ── CONTENT ── */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-16">
         
-        {/* Center Grand Logo — Futuristic HD Oval Badge */}
+        {/* Center Grand Logo — Ultra Reflective Crystal Glass Oval Badge */}
         <motion.div
           initial={{ opacity: 0, scale: 0.85, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
@@ -186,20 +186,32 @@ export default function HeroSection() {
           className="flex flex-col items-center justify-center mb-10 relative"
         >
           <div className="relative group cursor-pointer">
-            {/* Outer Ambient Oval Pulsing Aura */}
+            {/* Outer Radiant Specular Glow */}
             <div 
-              className="absolute -inset-4 sm:-inset-6 rounded-[50%] blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+              className="absolute -inset-6 sm:-inset-8 rounded-[50%] blur-3xl opacity-80 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
               style={{
-                background: 'radial-gradient(ellipse at center, rgba(6,182,212,0.5) 0%, rgba(59,130,246,0.3) 50%, rgba(139,92,246,0.2) 80%, transparent 100%)',
+                background: 'radial-gradient(ellipse at center, rgba(0, 245, 255, 0.6) 0%, rgba(96, 165, 250, 0.4) 45%, rgba(139, 92, 246, 0.3) 75%, transparent 100%)',
               }}
             />
             
-            {/* Glass Oval Frame with glowing border */}
-            <div className="relative p-2 sm:p-3 rounded-[50%] border-2 border-cyan-400/40 bg-gradient-to-b from-white/10 via-black/40 to-black/80 backdrop-blur-xl shadow-[0_0_40px_rgba(6,182,212,0.4),inset_0_0_20px_rgba(6,182,212,0.2)] group-hover:border-cyan-400/80 group-hover:shadow-[0_0_60px_rgba(6,182,212,0.7)] transition-all duration-500">
+            {/* Ultra Crystal Reflective Oval Frame */}
+            <div className="relative p-2.5 sm:p-3.5 rounded-[50%] border border-cyan-300/80 bg-gradient-to-br from-white/35 via-cyan-500/10 to-blue-600/20 backdrop-blur-2xl shadow-[0_0_50px_rgba(0,245,255,0.55),inset_0_1px_15px_rgba(255,255,255,0.7),inset_0_-4px_15px_rgba(0,245,255,0.3)] group-hover:border-cyan-200 group-hover:shadow-[0_0_80px_rgba(0,245,255,0.85),inset_0_1px_25px_rgba(255,255,255,0.9)] transition-all duration-500 overflow-hidden">
+              
+              {/* Top Specular Light Flare (Reflejo de luz diagonal de cristal) */}
+              <div 
+                className="absolute -top-12 -left-12 w-40 h-40 rounded-full pointer-events-none opacity-70 group-hover:opacity-100 transition-opacity duration-500"
+                style={{
+                  background: 'radial-gradient(circle, rgba(255,255,255,0.85) 0%, rgba(0,245,255,0.4) 40%, transparent 70%)',
+                }}
+              />
+              
+              {/* Glass Diagonal Shimmer Beam */}
+              <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent opacity-60 pointer-events-none" />
+
               <img
                 src="/logo-oval-hd.png"
                 alt="Ingenius SA"
-                className="w-44 sm:w-56 md:w-64 lg:w-72 h-auto object-contain rounded-[50%] transition-transform duration-500 group-hover:scale-105"
+                className="relative z-10 w-44 sm:w-56 md:w-64 lg:w-72 h-auto object-contain rounded-[50%] transition-transform duration-500 group-hover:scale-105 drop-shadow-[0_0_25px_rgba(0,245,255,0.6)]"
               />
             </div>
           </div>

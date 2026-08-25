@@ -17,19 +17,30 @@ export default function Navbar() {
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', onScroll);
+    window.addEventListener('scroll', onScroll, { passive: true });
     return () => window.removeEventListener('scroll', onScroll);
   }, []);
 
-  const handleNav = (href) => {
+  const scrollToSection = (e, href) => {
+    if (e) e.preventDefault();
     setMobileOpen(false);
-    setTimeout(() => {
-      const el = document.querySelector(href);
-      if (el) {
-        const top = el.getBoundingClientRect().top + window.pageYOffset - 70;
-        window.scrollTo({ top, behavior: 'smooth' });
-      }
-    }, 150);
+    
+    // Fallback directo por ID
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    
+    if (element) {
+      const navHeight = 70;
+      const elementPosition = element.getBoundingClientRect().top;
+      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
+
+      window.scrollTo({
+        top: offsetPosition,
+        behavior: 'smooth'
+      });
+    } else {
+      window.location.hash = href;
+    }
   };
 
   return (
@@ -39,95 +50,82 @@ export default function Navbar() {
       transition={{ duration: 0.8, ease: 'easeOut' }}
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ${
         scrolled
-          ? 'glass-card border-b border-white/5 shadow-2xl'
+          ? 'glass-card border-b border-white/5 shadow-2xl bg-[#030712]/90 backdrop-blur-md'
           : 'bg-transparent'
       }`}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 lg:h-20">
           {/* Logo */}
-          <motion.a
+          <a
             href="#hero"
-            onClick={(e) => { e.preventDefault(); handleNav('#hero'); }}
-            whileHover={{ scale: 1.03 }}
+            onClick={(e) => scrollToSection(e, '#hero')}
             className="flex items-center"
           >
             <LogoWithText />
-          </motion.a>
+          </a>
  
           {/* Desktop Links */}
           <div className="hidden lg:flex items-center gap-8">
             {navLinks.map((link, i) => (
-              <motion.button
+              <a
                 key={link.href}
-                initial={{ opacity: 0, y: -10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.1 * i + 0.3 }}
-                onClick={() => handleNav(link.href)}
-                className="relative text-sm font-body font-medium text-gray-300 hover:text-white transition-colors duration-200 group"
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className="relative text-sm font-body font-medium text-gray-300 hover:text-white transition-colors duration-200 group py-2"
               >
                 <CipherText text={link.label} delay={1000 + (i * 100)} />
                 <span className="absolute -bottom-1 left-0 w-0 h-px bg-gradient-to-r from-brand-gold to-brand-cyan group-hover:w-full transition-all duration-300" />
-              </motion.button>
+              </a>
             ))}
           </div>
 
           {/* CTA Button */}
-          <motion.button
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            transition={{ delay: 0.6 }}
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.95 }}
-            onClick={() => handleNav('#contact')}
+          <button
+            onClick={(e) => scrollToSection(e, '#contact')}
             className="hidden lg:block btn-primary text-xs"
           >
             Cuéntanos tu Idea
-          </motion.button>
+          </button>
 
           {/* Mobile Hamburger */}
           <button
-            className="lg:hidden flex flex-col gap-1.5 p-2"
+            type="button"
+            className="lg:hidden flex flex-col gap-1.5 p-3 rounded-xl bg-white/5 border border-white/10 text-white focus:outline-none"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
-            {[0, 1, 2].map(i => (
-              <motion.span
-                key={i}
-                animate={{
-                  rotate: mobileOpen && i === 0 ? 45 : mobileOpen && i === 2 ? -45 : 0,
-                  y: mobileOpen && i === 0 ? 8 : mobileOpen && i === 2 ? -8 : 0,
-                  opacity: mobileOpen && i === 1 ? 0 : 1,
-                }}
-                className="block w-6 h-0.5 bg-gradient-to-r from-brand-gold to-brand-cyan origin-center"
-              />
-            ))}
+            <span className={`block w-6 h-0.5 bg-brand-cyan transition-all duration-300 ${mobileOpen ? 'rotate-45 translate-y-2' : ''}`} />
+            <span className={`block w-6 h-0.5 bg-brand-gold transition-all duration-300 ${mobileOpen ? 'opacity-0' : ''}`} />
+            <span className={`block w-6 h-0.5 bg-brand-cyan transition-all duration-300 ${mobileOpen ? '-rotate-45 -translate-y-2' : ''}`} />
           </button>
         </div>
       </div>
 
-      {/* Mobile Menu */}
+      {/* Mobile Menu Dropdown */}
       <AnimatePresence>
         {mobileOpen && (
           <motion.div
             initial={{ opacity: 0, height: 0 }}
             animate={{ opacity: 1, height: 'auto' }}
             exit={{ opacity: 0, height: 0 }}
-            className="lg:hidden bg-brand-dark shadow-2xl border-t border-white/5 relative z-50"
+            className="lg:hidden bg-[#060F1F] shadow-2xl border-b border-white/10 relative z-50 overflow-hidden"
           >
-            <div className="px-4 py-6 flex flex-col gap-4">
+            <div className="px-6 py-6 flex flex-col gap-4">
               {navLinks.map((link) => (
-                <button
+                <a
                   key={link.href}
-                  onClick={() => handleNav(link.href)}
-                  className="text-left text-sm font-medium text-gray-300 hover:text-brand-cyan transition-colors py-2 border-b border-white/5"
+                  href={link.href}
+                  onClick={(e) => scrollToSection(e, link.href)}
+                  className="text-left text-base font-semibold text-gray-200 hover:text-brand-cyan transition-colors py-3 border-b border-white/5 flex items-center justify-between"
                 >
-                  {link.label}
-                </button>
+                  <span>{link.label}</span>
+                  <span className="text-gray-600 text-xs">→</span>
+                </a>
               ))}
               <button
-                onClick={() => handleNav('#contact')}
-                className="btn-primary text-xs mt-2"
+                onClick={(e) => scrollToSection(e, '#contact')}
+                className="btn-primary text-sm mt-3 w-full py-4 text-center font-bold"
               >
                 Cuéntanos tu Idea
               </button>
@@ -138,3 +136,4 @@ export default function Navbar() {
     </motion.nav>
   );
 }
+

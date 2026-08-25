@@ -178,22 +178,30 @@ export default function HeroSection() {
       {/* ── CONTENT ── */}
       <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-16">
         
-        {/* Center Grand Logo */}
+        {/* Center Grand Logo — Futuristic HD Oval Badge */}
         <motion.div
-          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          initial={{ opacity: 0, scale: 0.85, y: 20 }}
           animate={{ opacity: 1, scale: 1, y: 0 }}
-          transition={{ duration: 1, delay: 0.1, ease: 'easeOut' }}
-          className="flex flex-col items-center justify-center mb-8 relative"
+          transition={{ duration: 1, delay: 0.1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col items-center justify-center mb-10 relative"
         >
           <div className="relative group cursor-pointer">
-            {/* Ambient Radial Pulsing Glow */}
-            <div className="absolute -inset-8 bg-gradient-to-r from-brand-cyan/40 via-blue-500/30 to-purple-600/40 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500 animate-pulse pointer-events-none" />
-            
-            <img
-              src="/logo-header.png"
-              alt="Ingenius SA"
-              className="relative w-48 sm:w-60 md:w-72 lg:w-80 h-auto object-contain drop-shadow-[0_0_35px_rgba(6,182,212,0.6)] transition-transform duration-500 group-hover:scale-105"
+            {/* Outer Ambient Oval Pulsing Aura */}
+            <div 
+              className="absolute -inset-4 sm:-inset-6 rounded-[50%] blur-2xl opacity-70 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none"
+              style={{
+                background: 'radial-gradient(ellipse at center, rgba(6,182,212,0.5) 0%, rgba(59,130,246,0.3) 50%, rgba(139,92,246,0.2) 80%, transparent 100%)',
+              }}
             />
+            
+            {/* Glass Oval Frame with glowing border */}
+            <div className="relative p-2 sm:p-3 rounded-[50%] border-2 border-cyan-400/40 bg-gradient-to-b from-white/10 via-black/40 to-black/80 backdrop-blur-xl shadow-[0_0_40px_rgba(6,182,212,0.4),inset_0_0_20px_rgba(6,182,212,0.2)] group-hover:border-cyan-400/80 group-hover:shadow-[0_0_60px_rgba(6,182,212,0.7)] transition-all duration-500">
+              <img
+                src="/logo-oval-hd.png"
+                alt="Ingenius SA"
+                className="w-44 sm:w-56 md:w-64 lg:w-72 h-auto object-contain rounded-[50%] transition-transform duration-500 group-hover:scale-105"
+              />
+            </div>
           </div>
         </motion.div>
 

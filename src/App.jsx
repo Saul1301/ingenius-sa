@@ -10,6 +10,7 @@ import PortfolioShowcase from './components/PortfolioShowcase';
 import TestimonialsSection from './components/TestimonialsSection';
 import ServicesSection from './components/ServicesSection';
 import TypingTerminal from './components/TypingTerminal';
+import AboutSection from './components/AboutSection';
 import ArchitectureSlider from './components/ArchitectureSlider';
 import BentoSection from './components/BentoSection';
 import ResponsiveShowcase from './components/ResponsiveShowcase';
@@ -46,6 +47,9 @@ export default function App() {
 
         {/* 4. Bento — Infraestructura y Autoridad */}
         <BentoSection />
+
+        {/* 4.5 About & Founders — Ingeniería y Respaldo Humano */}
+        <AboutSection />
 
         {/* 5. Proof — El trabajo habla */}
         <PortfolioShowcase />

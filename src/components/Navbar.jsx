@@ -23,8 +23,13 @@ export default function Navbar() {
 
   const handleNav = (href) => {
     setMobileOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+    setTimeout(() => {
+      const el = document.querySelector(href);
+      if (el) {
+        const top = el.getBoundingClientRect().top + window.pageYOffset - 70;
+        window.scrollTo({ top, behavior: 'smooth' });
+      }
+    }, 150);
   };
 
   return (

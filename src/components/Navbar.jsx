@@ -22,22 +22,19 @@ export default function Navbar() {
   }, []);
 
   const scrollToSection = (e, href) => {
-    if (e) e.preventDefault();
+    if (e) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
     setMobileOpen(false);
     
-    // Fallback directo por ID
     const targetId = href.replace('#', '');
     const element = document.getElementById(targetId);
     
     if (element) {
-      const navHeight = 70;
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - navHeight;
-
-      window.scrollTo({
-        top: offsetPosition,
-        behavior: 'smooth'
-      });
+      setTimeout(() => {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }, 50);
     } else {
       window.location.hash = href;
     }

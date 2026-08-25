@@ -176,12 +176,32 @@ export default function HeroSection() {
       <GlowOrb />
 
       {/* ── CONTENT ── */}
-      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-24 pb-16">
+      <div className="relative z-10 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center pt-20 pb-16">
+        
+        {/* Center Grand Logo */}
+        <motion.div
+          initial={{ opacity: 0, scale: 0.8, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          transition={{ duration: 1, delay: 0.1, ease: 'easeOut' }}
+          className="flex flex-col items-center justify-center mb-8 relative"
+        >
+          <div className="relative group cursor-pointer">
+            {/* Ambient Radial Pulsing Glow */}
+            <div className="absolute -inset-8 bg-gradient-to-r from-brand-cyan/40 via-blue-500/30 to-purple-600/40 rounded-3xl blur-2xl opacity-75 group-hover:opacity-100 transition-opacity duration-500 animate-pulse pointer-events-none" />
+            
+            <img
+              src="/logo-header.png"
+              alt="Ingenius SA"
+              className="relative w-48 sm:w-60 md:w-72 lg:w-80 h-auto object-contain drop-shadow-[0_0_35px_rgba(6,182,212,0.6)] transition-transform duration-500 group-hover:scale-105"
+            />
+          </div>
+        </motion.div>
+
         {/* Urgency chip */}
         <motion.div
           initial={{ opacity: 0, y: 16 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.6, delay: 0.2 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
           className="flex justify-center mb-8"
         >
           <div

@@ -38,8 +38,8 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
           {/* Brand */}
           <div className="lg:col-span-2">
-            <LogoWithText height={36} className="mb-6" />
-            <p className="text-gray-500 text-sm leading-relaxed max-w-sm mb-8 mt-4">
+            <LogoWithText height={56} className="mb-6 justify-start" />
+            <p className="text-gray-400 text-sm leading-relaxed max-w-sm mb-8 mt-4">
               Transformamos ideas en sistemas inteligentes. 
               Precisión técnica, IA y seguridad en cada proyecto.
             </p>

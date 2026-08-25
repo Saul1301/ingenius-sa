@@ -362,7 +362,7 @@ export default function PricingCatalogPage() {
         {/* Footer Contact Direct */}
         <div className="text-center p-8 rounded-3xl border border-white/10 bg-white/[0.02]">
           <h4 className="text-lg font-bold text-white mb-2">Ingenius SA — Ingeniería y Desarrollo de Software</h4>
-          <p className="text-sm text-gray-400 mb-4">Jeremy Acosta & Saul Araujo · 9no Semestre (Último Semestre) USM</p>
+          <p className="text-sm text-gray-400 mb-4">Jeremy Acosta & Saul Araujo · Ingenieros en Sistemas (USM)</p>
           <div className="flex flex-wrap justify-center gap-4 text-xs font-mono text-cyan-400">
             <span>✉ proyectos.ingeniussa@gmail.com</span>
             <span>·</span>

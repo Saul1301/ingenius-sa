@@ -37,7 +37,7 @@ const founders = [
     role: 'Co-Fundador & Ing. de Sistemas',
     quote: '«El éxito de tu entorno determina el propio.»',
     university: 'Universidad Santa María (USM)',
-    semester: '9no Semestre (Último Semestre) — Ingeniería en Sistemas',
+    career: 'Ingeniería en Sistemas',
     location: 'Caracas, Venezuela',
     email: 'proyectos.ingeniussa@gmail.com',
     phoneFormatted: '+58 414-3977946',
@@ -60,7 +60,7 @@ const founders = [
     role: 'Co-Fundador & Ing. de Sistemas',
     quote: '«El enfoque y la constancia determinan la calidad del resultado.»',
     university: 'Universidad Santa María (USM)',
-    semester: '9no Semestre (Último Semestre) — Ingeniería en Sistemas',
+    career: 'Ingeniería en Sistemas',
     location: 'Caracas, Venezuela',
     email: 'proyectos.ingeniussa@gmail.com',
     phoneFormatted: '+58 424-2178791',
@@ -164,7 +164,7 @@ export default function AboutSection() {
             transition={{ delay: 0.2 }}
             className="text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed mt-2 text-center"
           >
-            Somos estudiantes de <strong>9no semestre de Ingeniería en Sistemas</strong> en la <strong>Universidad Santa María</strong> en Caracas. Fusionamos pensamiento lógico riguroso, innovación estética y arquitectura de software para construir herramientas que transforman negocios reales.
+            Somos <strong>Ingenieros en Sistemas</strong> formados en la <strong>Universidad Santa María</strong> en Caracas. Fusionamos pensamiento lógico riguroso, innovación estética y arquitectura de software para construir herramientas tecnológicas que transforman negocios reales.
           </motion.p>
         </div>
 
@@ -241,7 +241,7 @@ export default function AboutSection() {
                   </div>
                   <div>
                     <div className="text-xs font-mono text-gray-400">{founder.university}</div>
-                    <div className="text-sm font-semibold text-white">{founder.semester}</div>
+                    <div className="text-sm font-semibold text-white">{founder.career}</div>
                   </div>
                 </div>
 

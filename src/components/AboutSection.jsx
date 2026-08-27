@@ -272,29 +272,13 @@ export default function AboutSection() {
               </div>
 
               {/* Direct Contact Buttons */}
-              <div className="relative z-10 pt-6 border-t border-white/10 flex flex-col sm:flex-row gap-3">
+              <div className="relative z-10 pt-6 border-t border-white/10 flex gap-3">
                 <a
                   href={`mailto:${founder.email}`}
-                  className="flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-200"
+                  className="flex-grow flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-semibold text-white bg-white/5 hover:bg-white/10 border border-white/10 transition-all duration-200"
                 >
                   <Mail size={14} className={founder.accentColor} />
                   <span className="truncate">{founder.email}</span>
-                </a>
-
-                <a
-                  href={founder.whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className={`flex-1 flex items-center justify-center gap-2 px-4 py-3 rounded-xl text-xs font-bold text-black transition-all duration-300 hover:scale-[1.02] shadow-lg`}
-                  style={{
-                    background: founder.accentColor.includes('cyan') 
-                      ? 'linear-gradient(135deg, #00D4FF, #0099FF)' 
-                      : 'linear-gradient(135deg, #F5A623, #E67E22)',
-                    boxShadow: `0 0 20px ${founder.glow}`
-                  }}
-                >
-                  <MessageCircle size={15} />
-                  <span>WhatsApp: {founder.phoneFormatted}</span>
                 </a>
               </div>
             </SpotlightCard>

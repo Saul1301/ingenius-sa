@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Detailing Móvil en Moto — Ingenius SA</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800;900&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important;}
+  body{font-family:'Inter',sans-serif;background:#f0f4f8;color:#0f172a;font-size:13.5px;line-height:1.6;}
+  .page{max-width:820px;margin:0 auto;background:#fff;padding:64px 72px;min-height:100vh;}
+
+  .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:36px;padding-bottom:20px;border-bottom:3px solid #0077FF;}
+  .logo h1{font-size:26px;font-weight:900;color:#0077FF;letter-spacing:-1px;}
+  .logo p{font-size:11px;color:#94a3b8;margin-top:2px;}
+  .doc-meta .pill{display:inline-block;background:#0f172a;color:#fff;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;}
+  .doc-meta p{font-size:11px;color:#94a3b8;margin-top:6px;text-align:right;}
+
+  .hero{background:linear-gradient(135deg,#0f172a,#1e3a5f);border-radius:14px;padding:34px 40px;color:#fff;margin-bottom:32px;display:flex;justify-content:space-between;align-items:center;}
+  .hero-text h2{font-size:24px;font-weight:900;line-height:1.25;margin-bottom:8px;}
+  .hero-text p{font-size:12.5px;opacity:.8;max-width:420px;line-height:1.7;}
+  .hero-icon{font-size:72px;opacity:.9;}
+
+  .section{margin-bottom:30px;}
+  .sec-title{font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:2px;color:#0077FF;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .sec-title::after{content:'';flex:1;height:1.5px;background:#e2e8f0;}
+
+  /* PROBLEM/SOLUTION cards */
+  .prob-sol{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+  .prob{background:#fff5f5;border:1.5px solid #fecaca;border-radius:11px;padding:18px 20px;}
+  .prob h4{color:#dc2626;font-size:13px;font-weight:700;margin-bottom:8px;}
+  .sol{background:#f0fdf4;border:1.5px solid #86efac;border-radius:11px;padding:18px 20px;}
+  .sol h4{color:#16a34a;font-size:13px;font-weight:700;margin-bottom:8px;}
+  .prob ul,.sol ul{list-style:none;}
+  .prob ul li,.sol ul li{font-size:12px;color:#374151;padding:3px 0;}
+  .prob ul li::before{content:'✗ ';color:#dc2626;font-weight:700;}
+  .sol ul li::before{content:'✓ ';color:#16a34a;font-weight:700;}
+
+  /* HIGHLIGHT BOX */
+  .highlight{background:linear-gradient(135deg,#0077FF,#00c6ff);border-radius:12px;padding:22px 28px;color:#fff;margin-bottom:28px;}
+  .highlight h3{font-size:17px;font-weight:800;margin-bottom:6px;}
+  .highlight p{font-size:12.5px;opacity:.9;line-height:1.7;}
+
+  /* KIT TABLE */
+  .kit{background:#f8faff;border:1.5px solid #e0e9ff;border-radius:12px;padding:24px;}
+  .kit-row{display:flex;justify-content:space-between;align-items:center;padding:9px 0;border-bottom:1px solid #e2e8f0;font-size:12.5px;}
+  .kit-row:last-child{border-bottom:none;font-weight:800;color:#0077FF;font-size:14px;padding-top:14px;}
+  .kit-row .item{color:#0f172a;}
+  .kit-row .detail{color:#64748b;font-size:11px;}
+  .kit-row .price{font-weight:700;color:#0f172a;}
+  .kit-row:last-child .price{color:#0077FF;}
+
+  /* SERVICES */
+  .services{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;}
+  .serv{border-radius:11px;padding:18px 20px;border:1.5px solid #e0e9ff;}
+  .serv.s1{background:#f0f7ff;border-color:#bfdbfe;}
+  .serv.s2{background:#f5f3ff;border-color:#ddd6fe;}
+  .serv.s3{background:#f0fdf4;border-color:#bbf7d0;}
+  .serv.s4{background:#fff7ed;border-color:#fed7aa;}
+  .serv .price-big{font-size:26px;font-weight:900;margin-bottom:2px;}
+  .serv.s1 .price-big{color:#0077FF;}
+  .serv.s2 .price-big{color:#7c3aed;}
+  .serv.s3 .price-big{color:#16a34a;}
+  .serv.s4 .price-big{color:#d97706;}
+  .serv h5{font-size:13px;font-weight:700;margin-bottom:6px;}
+  .serv ul{list-style:none;font-size:11.5px;color:#475569;}
+  .serv ul li::before{content:'· ';}
+
+  /* INCOME CALC */
+  .income-box{background:#0f172a;border-radius:12px;padding:24px 28px;color:#fff;margin-bottom:28px;}
+  .income-box h4{font-size:14px;font-weight:700;margin-bottom:16px;color:#94a3b8;text-transform:uppercase;letter-spacing:1px;}
+  .income-row{display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid #1e293b;font-size:13px;}
+  .income-row:last-child{border-bottom:none;font-size:16px;font-weight:800;color:#0077FF;padding-top:14px;}
+  .income-row .val{font-weight:700;}
+
+  /* CLIENTS */
+  .clients-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+  .client-card{background:#f8faff;border:1px solid #e0e9ff;border-radius:10px;padding:14px;text-align:center;}
+  .client-card .icon{font-size:26px;margin-bottom:6px;}
+  .client-card p{font-size:11.5px;color:#475569;font-weight:500;}
+
+  /* ADVANTAGES */
+  .adv-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;}
+  .adv{display:flex;gap:12px;align-items:flex-start;background:#f8faff;border:1px solid #e0e9ff;border-radius:10px;padding:14px 16px;}
+  .adv .icon{font-size:22px;min-width:28px;}
+  .adv p{font-size:12px;color:#374151;}<br>
+  .adv strong{display:block;color:#0f172a;font-size:13px;margin-bottom:2px;}
+
+  .footer-note{text-align:center;margin-top:32px;padding-top:16px;border-top:1px solid #e2e8f0;font-size:10px;color:#cbd5e1;}
+
+  @media print{
+    body{background:#fff;}
+    .page{padding:44px 54px;}
+  }
+</style>
+</head>
+<body>
+<div class="page">
+
+  <!-- HEADER -->
+  <div class="header">
+    <div class="logo">
+      <h1>INGENIUS SA</h1>
+      <p>Detailing Móvil — División Servicios</p>
+    </div>
+    <div class="doc-meta">
+      <div class="pill">PLAN OPERATIVO DETAILING</div>
+      <p>Julio 2026 — Para: Jeremy</p>
+    </div>
+  </div>
+
+  <!-- HERO -->
+  <div class="hero">
+    <div class="hero-text">
+      <h2>Detailing Móvil en Moto<br>Sin Agua. Sin Corriente. Sin Local.</h2>
+      <p>Solución real para ofrecer servicios de detailing profesional en Venezuela usando solo lo que cabe en una mochila, yendo hasta donde está el cliente.</p>
+    </div>
+    <div class="hero-icon">🏍️</div>
+  </div>
+
+  <!-- PROBLEMAS Y SOLUCIONES -->
+  <div class="section">
+    <div class="sec-title">Problemas Identificados y Soluciones</div>
+    <div class="prob-sol">
+      <div class="prob">
+        <h4>❌ Sin local físico</h4>
+        <ul>
+          <li>No tenemos dónde recibir carros</li>
+          <li>Alquilar un espacio es muy costoso</li>
+          <li>Depender de un sitio limita los clientes</li>
+        </ul>
+      </div>
+      <div class="sol">
+        <h4>✅ Vamos donde el cliente</h4>
+        <ul>
+          <li>Trabajamos en su casa o trabajo</li>
+          <li>Estacionamientos de edificios</li>
+          <li>Sin costo de local = más ganancia</li>
+        </ul>
+      </div>
+      <div class="prob">
+        <h4>❌ Sin corriente eléctrica</h4>
+        <ul>
+          <li>Cortes de luz frecuentes en Venezuela</li>
+          <li>No podemos depender de la corriente del cliente</li>
+          <li>Pulidoras y aspiradoras requieren 110V</li>
+        </ul>
+      </div>
+      <div class="sol">
+        <h4>✅ Equipos sin electricidad</h4>
+        <ul>
+          <li>Aspiradora recargable por USB</li>
+          <li>Polish a mano (sin pulidora eléctrica)</li>
+          <li>Productos que no necesitan máquina</li>
+        </ul>
+      </div>
+      <div class="prob">
+        <h4>❌ Sin agua disponible</h4>
+        <ul>
+          <li>Racionamiento en muchas zonas</li>
+          <li>Acarrear agua en moto es inviable</li>
+          <li>Desperdiciar agua del cliente es mal servicio</li>
+        </ul>
+      </div>
+      <div class="sol">
+        <h4>✅ Waterless Detailing</h4>
+        <ul>
+          <li>Lavado 100% sin agua con spray especial</li>
+          <li>Mismo resultado, zero litros de agua</li>
+          <li>Se vende como servicio ecológico premium</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- QUE ES WATERLESS -->
+  <div class="highlight">
+    <h3>💧 ¿Qué es el Waterless Detailing?</h3>
+    <p>Es un método de limpieza que usa sprays de fórmula especial para encapsular y levantar la suciedad de la pintura <strong>sin usar una sola gota de agua</strong>. Se retira con microfibra de alta calidad. El resultado es un auto brillante, sin rayaduras y con protección aplicada. Es el método más usado en países con restricción de agua y el más fácil de transportar en moto.</p>
+  </div>
+
+  <!-- KIT DE INVERSIÓN -->
+  <div class="section">
+    <div class="sec-title">Kit de Inversión Inicial — Todo cabe en una mochila</div>
+    <div class="kit">
+      <div class="kit-row">
+        <div><span class="item">🧴 Spray Waterless Wash ×2</span><br><span class="detail">Levanta suciedad sin agua. Marca local o importada.</span></div>
+        <div class="price">~$8</div>
+      </div>
+      <div class="kit-row">
+        <div><span class="item">🧺 Microfibras 380 GSM ×15 unidades</span><br><span class="detail">Calidad alta obligatoria — las baratas raspan la pintura.</span></div>
+        <div class="price">~$10</div>
+      </div>
+      <div class="kit-row">
+        <div><span class="item">🪟 Limpia vidrios + paños de vidrio ×4</span><br><span class="detail">Parabrisas, lunas y espejos sin rayas.</span></div>
+        <div class="price">~$5</div>
+      </div>
+      <div class="kit-row">
+        <div><span class="item">🛋️ Limpiador de interiores (asientos y tapizado)</span><br><span class="detail">Espuma o spray para tela y cuero.</span></div>
+        <div class="price">~$6</div>
+      </div>
+      <div class="kit-row">
+        <div><span class="item">🖤 Acondicionador de tablero y plásticos</span><br><span class="detail">Da aspecto nuevo al interior, protege del sol.</span></div>
+        <div class="price">~$5</div>
+      </div>
+      <div class="kit-row">
+        <div><span class="item">✨ Cera/Sellador de pintura (pasta o spray)</span><br><span class="detail">Protección y brillo duradero. Se aplica a mano.</span></div>
+        <div class="price">~$8</div>
+      </div>
+      <div class="kit-row">
+        <div><span class="item">🔵 Brillo de cauchos</span><br><span class="detail">Acabado negro intenso en gomas y guardafangos.</span></div>
+        <div class="price">~$4</div>
+      </div>
+      <div class="kit-row">
+        <div><span class="item">🌬️ Aspiradora mini USB recargable</span><br><span class="detail">Para interior. No necesita corriente del lugar.</span></div>
+        <div class="price">~$20</div>
+      </div>
+      <div class="kit-row">
+        <div><span class="item">🎒 Mochila o maletín de transporte</span><br><span class="detail">Organizado, profesional, cabe en el baúl de la moto.</span></div>
+        <div class="price">~$10</div>
+      </div>
+      <div class="kit-row">
+        <span>INVERSIÓN TOTAL DEL KIT</span>
+        <div class="price">~$76 USD</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- SERVICIOS Y PRECIOS -->
+  <div class="section">
+    <div class="sec-title">Menú de Servicios y Precios</div>
+    <div class="services">
+      <div class="serv s1">
+        <div class="price-big">$10</div>
+        <h5>⚡ Quick Detail</h5>
+        <ul>
+          <li>Lavado exterior waterless</li>
+          <li>Brillo de cauchos</li>
+          <li>Limpieza de vidrios</li>
+        </ul>
+        <p style="font-size:11px;color:#3b82f6;margin-top:8px;font-weight:600;">⏱ 30–40 min</p>
+      </div>
+      <div class="serv s2">
+        <div class="price-big">$15</div>
+        <h5>🛋️ Interior Pro</h5>
+        <ul>
+          <li>Aspirado completo interior</li>
+          <li>Limpieza de tablero y plásticos</li>
+          <li>Acondicionado de superficies</li>
+        </ul>
+        <p style="font-size:11px;color:#7c3aed;margin-top:8px;font-weight:600;">⏱ 40–50 min</p>
+      </div>
+      <div class="serv s3">
+        <div class="price-big">$25</div>
+        <h5>🌟 Full Detail Básico</h5>
+        <ul>
+          <li>Exterior waterless completo</li>
+          <li>Interior aspirado + limpiado</li>
+          <li>Vidrios + cauchos</li>
+        </ul>
+        <p style="font-size:11px;color:#16a34a;margin-top:8px;font-weight:600;">⏱ 1.5 horas</p>
+      </div>
+      <div class="serv s4">
+        <div class="price-big">$45</div>
+        <h5>💎 Detailing Premium</h5>
+        <ul>
+          <li>Todo el Full Detail</li>
+          <li>Cera sellante de pintura</li>
+          <li>Perfumado + bordes limpios</li>
+        </ul>
+        <p style="font-size:11px;color:#d97706;margin-top:8px;font-weight:600;">⏱ 2.5–3 horas</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROYECCIÓN INGRESOS -->
+  <div class="income-box">
+    <h4>📊 Proyección de ingresos diaria / mensual</h4>
+    <div class="income-row">
+      <span>Escenario mínimo: 2 Quick Detail/día</span>
+      <span class="val">$20/día → $500/mes</span>
+    </div>
+    <div class="income-row">
+      <span>Escenario medio: 2 Full Detail/día</span>
+      <span class="val">$50/día → $1.250/mes</span>
+    </div>
+    <div class="income-row">
+      <span>Escenario ideal: 1 Premium + 2 Quick/día</span>
+      <span class="val">$65/día → $1.625/mes</span>
+    </div>
+    <div class="income-row">
+      <span>Recuperación de inversión del kit</span>
+      <span class="val">¡En el 4to carro! 🚗</span>
+    </div>
+  </div>
+
+  <!-- DONDE CONSEGUIR CLIENTES -->
+  <div class="section">
+    <div class="sec-title">¿Dónde Conseguir los Primeros Clientes?</div>
+    <div class="clients-grid">
+      <div class="client-card">
+        <div class="icon">📱</div>
+        <p><strong>Instagram/WhatsApp</strong><br>Video del antes y después. Grupos de autos de Venezuela.</p>
+      </div>
+      <div class="client-card">
+        <div class="icon">🏢</div>
+        <p><strong>Edificios residenciales</strong><br>Hablar con el conserje y ofrecer el servicio a todos los residentes.</p>
+      </div>
+      <div class="client-card">
+        <div class="icon">🏢</div>
+        <p><strong>Empresas y oficinas</strong><br>Los empleados dejan el carro en el estacionamiento todo el día — ahí trabajamos.</p>
+      </div>
+      <div class="client-card">
+        <div class="icon">🚗</div>
+        <p><strong>Grupos de autos en Telegram</strong><br>Venezuela tiene comunidades activas de dueños de carros que cuidan su vehículo.</p>
+      </div>
+      <div class="client-card">
+        <div class="icon">📋</div>
+        <p><strong>Tarjetas en parabrisas</strong><br>Dejar tarjeta en carros bien cuidados. Esos dueños sí pagan por el servicio.</p>
+      </div>
+      <div class="client-card">
+        <div class="icon">🤝</div>
+        <p><strong>Referidos con descuento</strong><br>Cada cliente que traiga otro recibe 10% de descuento en su próximo servicio.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- VENTAJAS DEL MODELO -->
+  <div class="section">
+    <div class="sec-title">Ventajas del Modelo Móvil Sin Agua</div>
+    <div class="adv-grid">
+      <div class="adv">
+        <div class="icon">💰</div>
+        <div><strong>Costo inicial mínimo</strong><p>Solo ~$76 para arrancar. Sin alquiler, sin depósito, sin empleados.</p></div>
+      </div>
+      <div class="adv">
+        <div class="icon">🔋</div>
+        <div><strong>100% independiente</strong><p>No dependemos de la corriente ni del agua del cliente. Funciona siempre.</p></div>
+      </div>
+      <div class="adv">
+        <div class="icon">🌱</div>
+        <div><strong>Se vende como premium</strong><p>"Detailing ecológico sin agua" es una propuesta de valor diferenciadora.</p></div>
+      </div>
+      <div class="adv">
+        <div class="icon">📍</div>
+        <div><strong>Sin límite de zona</strong><p>La moto nos lleva a cualquier parte. Más cobertura = más clientes potenciales.</p></div>
+      </div>
+      <div class="adv">
+        <div class="icon">⚡</div>
+        <div><strong>Caja inmediata</strong><p>Se cobra el mismo día del servicio. No esperamos 15 días como en software.</p></div>
+      </div>
+      <div class="adv">
+        <div class="icon">📈</div>
+        <div><strong>Escala con referidos</strong><p>Un cliente satisfecho trae 2 más. En 3 meses la agenda se llena sola.</p></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-note">Ingenius SA © 2026 — Plan Operativo Detailing Móvil — Documento Interno</div>
+
+</div>
+</body>
+</html>

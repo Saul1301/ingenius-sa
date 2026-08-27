@@ -36,8 +36,8 @@ const founders = [
     avatarImg: '/jeremy.jpg',
     role: 'Co-Fundador & Ing. de Sistemas',
     quote: '«El éxito de tu entorno determina el propio.»',
-    university: 'Universidad Santa María (USM)',
-    career: 'Ingeniero en Sistemas',
+    highlightLabel: 'Especialidad',
+    highlightValue: 'Arquitectura Backend & Sistemas',
     location: 'Caracas, Venezuela',
     email: 'proyectos.ingeniussa@gmail.com',
     phoneFormatted: '+58 414-3977946',
@@ -59,8 +59,8 @@ const founders = [
     avatarImg: '/saul.jpg',
     role: 'Co-Fundador & Ing. de Sistemas',
     quote: '«El enfoque y la constancia determinan la calidad del resultado.»',
-    university: 'Universidad Santa María (USM)',
-    career: 'Ingeniero en Sistemas',
+    highlightLabel: 'Especialidad',
+    highlightValue: 'Estrategia Digital & Frontend',
     location: 'Caracas, Venezuela',
     email: 'proyectos.ingeniussa@gmail.com',
     phoneFormatted: '+58 424-2178791',
@@ -164,7 +164,7 @@ export default function AboutSection() {
             transition={{ delay: 0.2 }}
             className="text-gray-400 max-w-3xl mx-auto text-lg leading-relaxed mt-2 text-center"
           >
-            Somos <strong>Ingenieros en Sistemas</strong> formados en la <strong>Universidad Santa María</strong> en Caracas. Fusionamos pensamiento lógico riguroso, innovación estética y arquitectura de software para construir herramientas tecnológicas que transforman negocios reales.
+            Somos un equipo de <strong>Ingenieros de Sistemas</strong> con sede en Caracas, Venezuela. Fusionamos pensamiento lógico riguroso, innovación estética y arquitectura de software para construir plataformas digitales que escalan negocios reales.
           </motion.p>
         </div>
 
@@ -234,14 +234,14 @@ export default function AboutSection() {
                   </div>
                 </div>
 
-                {/* Academic credentials */}
+                {/* Professional Highlights */}
                 <div className="mb-6 bg-white/[0.02] border border-white/5 rounded-2xl p-4 flex items-center gap-3.5">
                   <div className={`w-10 h-10 rounded-xl ${founder.accentBg} flex items-center justify-center flex-shrink-0`}>
-                    <GraduationCap size={20} className={founder.accentColor} />
+                    <Terminal size={20} className={founder.accentColor} />
                   </div>
                   <div>
-                    <div className="text-xs font-mono text-gray-400">{founder.university}</div>
-                    <div className="text-sm font-semibold text-white">{founder.career}</div>
+                    <div className="text-xs font-mono text-gray-400">{founder.highlightLabel}</div>
+                    <div className="text-sm font-semibold text-white">{founder.highlightValue}</div>
                   </div>
                 </div>
 

@@ -1,0 +1,230 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Plan de Negocio — Ingenius SA</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700;800;900&family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap');
+  *{margin:0;padding:0;box-sizing:border-box;-webkit-print-color-adjust:exact !important;print-color-adjust:exact !important;color-adjust:exact !important;}
+  body{font-family:'Plus Jakarta Sans',sans-serif;background:#030712;color:#e2e8f0;font-size:13.5px;line-height:1.6;}
+  .page{max-width:820px;margin:0 auto;background:#060F1F;padding:64px 72px;min-height:100vh;border:1px solid rgba(6,182,212,0.1);}
+
+  .header{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px;padding-bottom:24px;border-bottom:1px solid rgba(6,182,212,0.2);}
+  .logo h1{font-family:'Outfit',sans-serif;font-size:26px;font-weight:900;background:linear-gradient(135deg,#3B82F6,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;letter-spacing:-1px;}
+  .logo p{font-size:11px;color:#4B6A9B;margin-top:3px;}
+  .doc-meta .pill{display:inline-block;background:#0A1628;border:1px solid rgba(59,130,246,0.4);color:#60A5FA;font-size:10px;font-weight:700;padding:4px 14px;border-radius:20px;}
+  .doc-meta p{font-size:11px;color:#4B6A9B;margin-top:6px;text-align:right;}
+
+  .hero{background:linear-gradient(135deg,#0A1628,#060F1F);border:1px solid rgba(59,130,246,0.25);border-radius:14px;padding:36px 40px;color:#fff;margin-bottom:32px;display:flex;justify-content:space-between;align-items:center;position:relative;overflow:hidden;}
+  .hero::before{content:'';position:absolute;top:-80px;right:-80px;width:250px;height:250px;background:radial-gradient(circle,rgba(6,182,212,0.12),transparent 70%);}
+  .hero-text h2{font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;background:linear-gradient(135deg,#fff,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1.25;margin-bottom:8px;}
+  .hero-text p{font-size:12.5px;color:#64748b;max-width:420px;line-height:1.7;}
+  .capital-badge{background:rgba(59,130,246,0.1);border:1.5px solid rgba(59,130,246,0.35);border-radius:12px;padding:16px 22px;text-align:center;min-width:140px;}
+  .capital-badge .amount{font-family:'Outfit',sans-serif;font-size:28px;font-weight:900;background:linear-gradient(135deg,#3B82F6,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .capital-badge p{font-size:10px;color:#4B6A9B;margin-top:4px;}
+
+  .section{margin-bottom:30px;}
+  .sec-title{font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:2.5px;color:#06B6D4;margin-bottom:14px;display:flex;align-items:center;gap:10px;}
+  .sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,rgba(6,182,212,0.4),transparent);}
+
+  .two-col{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .card{background:#0A1628;border:1px solid rgba(59,130,246,0.15);border-radius:11px;padding:18px 20px;}
+  .card h4{font-size:12.5px;font-weight:700;color:#e2e8f0;margin-bottom:8px;display:flex;align-items:center;gap:7px;}
+  .card ul{list-style:none;}
+  .card ul li{font-size:12px;color:#64748b;padding:3px 0;}
+  .card ul li::before{content:'→ ';color:#06B6D4;font-weight:700;}
+
+  .cap-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:10px;}
+  .cap-item{background:#0A1628;border:1px solid rgba(59,130,246,0.2);border-radius:10px;padding:14px;text-align:center;}
+  .cap-item .amount{font-family:'Outfit',sans-serif;font-size:18px;font-weight:800;color:#3B82F6;}
+  .cap-item .label{font-size:10px;color:#4B6A9B;margin-top:4px;line-height:1.4;}
+  .cap-reserve{background:#0A1628;border:1.5px solid rgba(139,92,246,0.3);border-radius:10px;padding:14px;text-align:center;}
+  .cap-reserve .amount{font-family:'Outfit',sans-serif;font-size:22px;font-weight:900;background:linear-gradient(135deg,#8B5CF6,#06B6D4);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .cap-reserve .label{font-size:10px;color:#8B5CF6;font-weight:700;margin-top:3px;}
+
+  .roles-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .role-card{border-radius:12px;padding:22px;border:1px solid rgba(59,130,246,0.2);background:#0A1628;position:relative;overflow:hidden;}
+  .role-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;}
+  .role-card.you::before{background:linear-gradient(90deg,#3B82F6,#06B6D4);}
+  .role-card.jeremy::before{background:linear-gradient(90deg,#8B5CF6,#06B6D4);}
+  .role-card h4{font-family:'Outfit',sans-serif;font-size:15px;font-weight:800;margin-bottom:4px;}
+  .role-card.you h4{color:#60A5FA;}
+  .role-card.jeremy h4{color:#A78BFA;}
+  .role-card .tag{display:inline-block;font-size:9px;font-weight:700;padding:3px 10px;border-radius:20px;margin-bottom:12px;letter-spacing:1px;}
+  .role-card.you .tag{background:rgba(59,130,246,0.15);color:#60A5FA;border:1px solid rgba(59,130,246,0.3);}
+  .role-card.jeremy .tag{background:rgba(139,92,246,0.15);color:#A78BFA;border:1px solid rgba(139,92,246,0.3);}
+  .role-card ul{list-style:none;}
+  .role-card ul li{font-size:12px;color:#64748b;padding:3px 0;}
+  .role-card.you ul li::before{content:'✓ ';color:#3B82F6;font-weight:700;}
+  .role-card.jeremy ul li::before{content:'✓ ';color:#8B5CF6;font-weight:700;}
+
+  .strategy-steps{display:flex;flex-direction:column;gap:10px;}
+  .step{display:flex;gap:16px;align-items:flex-start;background:#0A1628;border:1px solid rgba(59,130,246,0.12);border-radius:10px;padding:14px 18px;}
+  .step-num{min-width:30px;height:30px;background:linear-gradient(135deg,#3B82F6,#06B6D4);border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-weight:800;font-size:12px;flex-shrink:0;}
+  .step-body h5{font-size:12.5px;font-weight:700;color:#e2e8f0;margin-bottom:2px;}
+  .step-body p{font-size:12px;color:#64748b;}
+
+  table{width:100%;border-collapse:collapse;font-size:12px;}
+  thead tr{background:linear-gradient(135deg,#3B82F6,#06B6D4);}
+  thead th{color:#fff;padding:10px 14px;text-align:left;font-weight:700;}
+  tbody td{padding:10px 14px;border-bottom:1px solid rgba(255,255,255,0.04);color:#94a3b8;}
+  tbody tr:last-child td{border-bottom:none;font-weight:700;color:#60A5FA;background:rgba(59,130,246,0.08);}
+  tbody tr:nth-child(even) td{background:rgba(255,255,255,0.02);}
+
+  .terms-box{background:#0A1628;border:1px solid rgba(139,92,246,0.2);border-radius:11px;padding:20px 24px;}
+  .terms-box p{font-size:12px;color:#64748b;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);}
+  .terms-box p:last-child{border-bottom:none;}
+  .terms-box strong{color:#a5b4fc;}
+
+  .goal-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+  .goal-min{background:#0A1628;border:1px solid rgba(6,182,212,0.25);border-radius:11px;padding:18px 20px;}
+  .goal-ideal{background:#0A1628;border:1px solid rgba(139,92,246,0.25);border-radius:11px;padding:18px 20px;}
+  .goal-min h4{font-size:12.5px;font-weight:700;color:#06B6D4;margin-bottom:8px;}
+  .goal-ideal h4{font-size:12.5px;font-weight:700;color:#A78BFA;margin-bottom:8px;}
+  .goal-min ul,.goal-ideal ul{list-style:none;}
+  .goal-min ul li{font-size:12px;color:#64748b;padding:3px 0;}
+  .goal-ideal ul li{font-size:12px;color:#64748b;padding:3px 0;}
+  .goal-min ul li::before{content:'✓ ';color:#06B6D4;font-weight:700;}
+  .goal-ideal ul li::before{content:'✓ ';color:#8B5CF6;font-weight:700;}
+
+  .sig-section{display:flex;gap:40px;margin-top:40px;padding-top:24px;border-top:1px solid rgba(6,182,212,0.15);}
+  .sig-block{flex:1;text-align:center;}
+  .sig-line{height:1px;background:rgba(255,255,255,0.15);margin:50px 0 8px;}
+  .sig-block p{font-size:11px;color:#4B6A9B;}
+  .sig-block strong{font-size:12px;color:#94a3b8;}
+
+  .footer-note{text-align:center;margin-top:20px;font-size:10px;color:#0d2240;}
+  @media print{body{background:#060F1F;}.page{padding:44px 54px;}}
+</style>
+</head>
+<body>
+<div class="page">
+
+  <div class="header">
+    <div class="logo">
+      <h1>INGENIUS SA</h1>
+      <p>Software · Automatización · Soluciones Digitales</p>
+    </div>
+    <div class="doc-meta">
+      <div class="pill">PLAN DE NEGOCIO INTERNO</div>
+      <p>Julio 2026 — Confidencial</p>
+      <p>Socios: 2 personas</p>
+    </div>
+  </div>
+
+  <div class="hero">
+    <div class="hero-text">
+      <h2>Plan de Emprendimiento<br>Ingenius SA — 2026</h2>
+      <p>Documento interno de planificación estratégica para definir la operación, distribución de capital, roles y proyecciones del negocio de software para pequeñas y medianas empresas.</p>
+    </div>
+    <div class="capital-badge">
+      <div class="amount">$5.000</div>
+      <p>Capital inicial<br>entre ambos socios</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Visión del Negocio</div>
+    <div class="two-col">
+      <div class="card"><h4>🎯 ¿Qué hacemos?</h4><ul><li>Páginas web profesionales</li><li>Sistemas de gestión a medida</li><li>Automatización de procesos</li><li>Apps para pequeños negocios</li></ul></div>
+      <div class="card"><h4>🏪 ¿A quién le vendemos?</h4><ul><li>Bodegas y comercios locales</li><li>Restaurantes y panaderías</li><li>Ferreterías y tiendas</li><li>Profesionales independientes</li></ul></div>
+      <div class="card"><h4>💡 Nuestra ventaja</h4><ul><li>Precios accesibles para Venezuela</li><li>Entrega rápida (1–2 semanas)</li><li>Soporte y capacitación incluida</li><li>Branding profesional (Ingenius SA)</li></ul></div>
+      <div class="card"><h4>🌐 Presencia actual</h4><ul><li>Página web activa: ingeniusa.com</li><li>Identidad de marca establecida</li><li>Portafolio en construcción</li><li>Listo para recibir clientes</li></ul></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Distribución del Capital — $5.000 USD</div>
+    <div class="cap-grid">
+      <div class="cap-item"><div class="amount">$600</div><div class="label">Marketing Digital (Ads + redes)</div></div>
+      <div class="cap-item"><div class="amount">$400</div><div class="label">Branding y Herramientas (dominio, hosting)</div></div>
+      <div class="cap-item"><div class="amount">$500</div><div class="label">Operaciones (transporte, imprevistos)</div></div>
+      <div class="cap-item"><div class="amount">$500</div><div class="label">Detailing Móvil (equipo básico)</div></div>
+    </div>
+    <div class="cap-reserve">
+      <div class="amount">$3.000</div>
+      <div class="label">⚠️ RESERVA ESTRATÉGICA — Solo usar con acuerdo de ambos socios</div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Roles y Responsabilidades</div>
+    <div class="roles-grid">
+      <div class="role-card you">
+        <h4>Socio 1</h4>
+        <div class="tag">DIRECCIÓN COMERCIAL</div>
+        <ul><li>Conseguir y cerrar clientes</li><li>Gestión de proyectos</li><li>Comunicación con clientes</li><li>Estrategia de negocio</li><li>Desarrollo web y sistemas</li></ul>
+      </div>
+      <div class="role-card jeremy">
+        <h4>Jeremy</h4>
+        <div class="tag">DIRECCIÓN TÉCNICA</div>
+        <ul><li>Desarrollo de software</li><li>Diseño y maquetación</li><li>Soporte técnico post-entrega</li><li>Control de calidad</li><li>Detailing móvil (ingreso paralelo)</li></ul>
+      </div>
+    </div>
+    <div class="card" style="margin-top:12px;border-color:rgba(0,245,255,0.15);">
+      <h4>💰 Modelo de reparto de ganancias</h4>
+      <ul><li>Cada proyecto cerrado: 50% para cada socio, descontando costos operativos</li><li>Ingresos del detailing: 100% del socio que realizó el trabajo</li><li>Reinversión obligatoria del 10% de cada proyecto al fondo común</li></ul>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Estrategia de Captación de Clientes</div>
+    <div class="strategy-steps">
+      <div class="step"><div class="step-num">1</div><div class="step-body"><h5>Preparar el kit de ventas</h5><p>Tarjetas de presentación, portafolio en PDF, página web presentable. El cliente debe poder verificarnos.</p></div></div>
+      <div class="step"><div class="step-num">2</div><div class="step-body"><h5>Ir puerta a puerta a pequeños negocios</h5><p>Bodegas, ferreterías, peluquerías, panaderías. Llevar tablet o laptop. Hablar siempre con el dueño.</p></div></div>
+      <div class="step"><div class="step-num">3</div><div class="step-body"><h5>Pitch: "¿Llevas tu negocio en papel?"</h5><p>Mostrar el problema que tienen hoy y la solución que ofrecemos. Demo en vivo si es posible.</p></div></div>
+      <div class="step"><div class="step-num">4</div><div class="step-body"><h5>Cerrar con propuesta clara y precio firme</h5><p>Propuesta escrita, precio en USD, pago 50% adelantado. No trabajar sin anticipo. Entrega en 2 semanas.</p></div></div>
+      <div class="step"><div class="step-num">5</div><div class="step-body"><h5>Pedir referidos al entregar</h5><p>Cada cliente satisfecho es fuente de nuevos clientes. 5–10% de descuento al cliente que refiera a otro negocio.</p></div></div>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Proyección Financiera — Primeros 6 Meses</div>
+    <table>
+      <thead><tr><th>Mes</th><th>Proyectos</th><th>Ingresos Software</th><th>Detailing</th><th>Total Mes</th><th>Acumulado</th></tr></thead>
+      <tbody>
+        <tr><td>Mes 1</td><td>1 proyecto</td><td>$200</td><td>$300</td><td>$500</td><td>$500</td></tr>
+        <tr><td>Mes 2</td><td>2 proyectos</td><td>$400</td><td>$400</td><td>$800</td><td>$1.300</td></tr>
+        <tr><td>Mes 3</td><td>3 proyectos</td><td>$600</td><td>$400</td><td>$1.000</td><td>$2.300</td></tr>
+        <tr><td>Mes 4</td><td>4 proyectos</td><td>$800</td><td>$500</td><td>$1.300</td><td>$3.600</td></tr>
+        <tr><td>Mes 5</td><td>5 proyectos</td><td>$1.000</td><td>$500</td><td>$1.500</td><td>$5.100</td></tr>
+        <tr><td>Mes 6</td><td>6 proyectos</td><td>$1.200</td><td>$600</td><td>$1.800</td><td>$6.900</td></tr>
+        <tr><td colspan="4"><strong>TOTAL 6 MESES</strong></td><td><strong>$6.900</strong></td><td><strong>+$1.900 sobre capital</strong></td></tr>
+      </tbody>
+    </table>
+    <p style="font-size:11px;color:#1e3a5f;margin-top:8px;">* Proyección conservadora. Los números de ingresos deben validarse con el mercado real de Caracas.</p>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Acuerdos de la Sociedad</div>
+    <div class="terms-box">
+      <p><strong>Capital:</strong> Cada socio aporta $2.500 USD para un total de $5.000 USD de capital inicial.</p>
+      <p><strong>Participación:</strong> 50% cada socio sobre las utilidades netas del negocio.</p>
+      <p><strong>Decisiones:</strong> Toda decisión de inversión mayor a $200 USD requiere acuerdo de ambos socios.</p>
+      <p><strong>Retiros:</strong> No se retiran ganancias los primeros 2 meses. A partir del mes 3, máximo 40% de utilidades.</p>
+      <p><strong>Reserva:</strong> Los $3.000 solo se usan si ambos socios están de acuerdo y hay necesidad real del negocio.</p>
+      <p><strong>Clientes:</strong> Todo cliente conseguido por cualquiera de los dos pertenece a Ingenius SA, no al socio individualmente.</p>
+      <p><strong>Salida:</strong> Si algún socio se retira, se liquida su parte proporcional del capital activo sin la reserva.</p>
+    </div>
+  </div>
+
+  <div class="section">
+    <div class="sec-title">Meta a 90 Días</div>
+    <div class="goal-grid">
+      <div class="goal-min"><h4>✅ Objetivos mínimos</h4><ul><li>5 clientes cerrados</li><li>$1.000+ en ingresos totales</li><li>Portafolio con 3 proyectos reales</li><li>Primera reseña de cliente satisfecho</li></ul></div>
+      <div class="goal-ideal"><h4>🚀 Objetivos ideales</h4><ul><li>10 clientes cerrados</li><li>$2.500+ en ingresos totales</li><li>Red de referidos activa</li><li>Primer cliente recurrente (mantenimiento)</li></ul></div>
+    </div>
+  </div>
+
+  <div class="sig-section">
+    <div class="sig-block"><div class="sig-line"></div><strong>Socio 1</strong><p>Cofundador — Ingenius SA</p></div>
+    <div style="flex:0.6;display:flex;align-items:flex-end;justify-content:center;padding-bottom:8px;text-align:center;">
+      <div><div style="font-size:11px;color:#4B6A9B;">📧 proyectos.ingeniussa@gmail.com</div><div style="font-size:11px;color:#4B6A9B;margin-top:3px;">📱 +58 424 217 8791</div></div>
+    </div>
+    <div class="sig-block"><div class="sig-line"></div><strong>Jeremy</strong><p>Cofundador — Ingenius SA</p></div>
+  </div>
+
+  <div class="footer-note">Ingenius SA © 2026 — Documento Interno Confidencial — Prohibida su distribución a terceros</div>
+</div>
+</body>
+</html>

@@ -72,6 +72,7 @@ const projects = [
     imageAlt: 'Numerólogo Eli — Plataforma de Inteligencia Numérica',
     cards: ['bg-brand-cyan/20', 'bg-brand-cyan/10', 'bg-sky-500/10'],
     lines: [],
+    url: 'https://numerologoeli.com/',
   },
 ];
 

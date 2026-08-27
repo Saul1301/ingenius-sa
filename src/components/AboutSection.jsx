@@ -71,7 +71,7 @@ const founders = [
     accentColor: 'text-brand-gold',
     accentBg: 'bg-brand-gold/10',
     tagColor: 'text-brand-gold border-brand-gold/20 bg-brand-gold/5',
-    objectPosition: 'object-top',
+    objectPosition: 'object-center',
     specialties: [
       'Marketing Digital & Estrategia de Crecimiento',
       'Desarrollo de Estética Digital & UX/UI',

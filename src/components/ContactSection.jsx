@@ -141,7 +141,8 @@ export default function ContactSection() {
 
   const contactInfo = [
     { icon: Mail, label: 'Email', value: 'proyectos.ingeniussa@gmail.com', href: 'mailto:proyectos.ingeniussa@gmail.com' },
-    { icon: Phone, label: 'WhatsApp', value: '+58 414 397 7946', href: 'https://wa.me/584143977946' },
+    { icon: Phone, label: 'WhatsApp (Jeremy)', value: '+58 414 397 7946', href: 'https://wa.me/584143977946' },
+    { icon: Phone, label: 'WhatsApp (Saúl)', value: '+58 424 217 8791', href: 'https://wa.me/584242178791' },
     { icon: MessageSquare, label: 'Respuesta', value: 'Menos de 24 horas', href: null },
   ];
 

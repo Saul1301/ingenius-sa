@@ -10,25 +10,26 @@ import Tilt from 'react-parallax-tilt';
 // ─────────────────────────────────────────────────────────────────────────────
 const projects = [
   {
-    id: 'despertar-171',
-    tag: 'Landing · Bienestar Espiritual',
-    title: 'Despertar 171',
-    soul: 'Un alma que sana merece una presencia digital que inspire. Diseñamos la paz que el cliente transmite.',
-    description: 'Plataforma de sanación y coaching espiritual. Landing page inmersiva con sistema de reservas directo por WhatsApp, paleta profunda y comunicación que conecta desde el primer scroll.',
-    result: 'Reservas automáticas 24/7',
-    resultColor: 'text-purple-400',
+    id: 'nodotech',
+    tag: 'Catálogo · E-commerce',
+    title: 'Nodo Tech',
+    soul: 'Más que accesorios, somos tu aliado tecnológico en Caracas.',
+    description: 'Catálogo digital interactivo de accesorios tecnológicos. Conectamos a los usuarios con los mejores productos de alta gama, 100% originales, sellados y con garantía real.',
+    result: 'Catálogo interactivo online',
+    resultColor: 'text-blue-400',
     icon: Globe,
-    iconColor: 'text-purple-400',
-    border: 'border-purple-500/25',
-    glow: 'rgba(168,85,247,0.18)',
-    glowHover: 'rgba(168,85,247,0.45)',
-    gradient: 'from-purple-500/15 via-purple-500/5 to-transparent',
-    dotGradient: 'from-purple-400 to-violet-300',
-    barColor: '#a855f7',
-    image: '/1.png',
-    imageAlt: 'Despertar 171 — Plataforma de Bienestar',
-    cards: ['bg-purple-500/20', 'bg-purple-500/10', 'bg-violet-500/10'],
+    iconColor: 'text-blue-400',
+    border: 'border-blue-500/25',
+    glow: 'rgba(59,130,246,0.18)',
+    glowHover: 'rgba(59,130,246,0.45)',
+    gradient: 'from-blue-500/15 via-blue-500/5 to-transparent',
+    dotGradient: 'from-blue-400 to-sky-300',
+    barColor: '#3b82f6',
+    image: '/nodotech.png',
+    imageAlt: 'Nodo Tech — Catálogo de Accesorios de Tecnología',
+    cards: ['bg-blue-500/20', 'bg-blue-500/10', 'bg-sky-500/10'],
     lines: [],
+    url: 'https://nodotech.website/',
   },
   {
     id: 'all-for-cars',
@@ -118,9 +119,9 @@ function BrowserMockup({ project }) {
           <div className="w-3 h-3 rounded-full bg-yellow-500/70" />
           <div className="w-3 h-3 rounded-full bg-green-500/70" />
         </div>
-        <div className="flex-1 mx-3 px-3 py-1 rounded-md text-xs font-mono"
+        <div className="flex-1 mx-3 px-3 py-1 rounded-md text-xs font-mono text-center truncate"
           style={{ background: 'rgba(255,255,255,0.05)', color: project.barColor + 'AA' }}>
-          ingenius.dev/{project.id}
+          {project.url ? project.url.replace('https://', '') : `ingenius.dev/${project.id}`}
         </div>
       </div>
       {/* Content: real image or simulated */}
@@ -220,13 +221,25 @@ function ProjectCard({ project, index }) {
             <div className={`w-2 h-2 rounded-full bg-gradient-to-r ${project.dotGradient} animate-pulse`} />
             {project.result}
           </div>
-          <motion.button
-            whileHover={{ x: 4 }}
-            onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
-            className={`flex items-center gap-1.5 text-xs ${project.iconColor} hover:opacity-100 opacity-60 transition-opacity font-semibold`}
-          >
-            Quiero esto <ArrowRight size={12} />
-          </motion.button>
+          {project.url ? (
+            <motion.a
+              whileHover={{ x: 4 }}
+              href={project.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              className={`flex items-center gap-1.5 text-xs ${project.iconColor} hover:opacity-100 opacity-60 transition-opacity font-semibold`}
+            >
+              Visitar sitio <ArrowRight size={12} />
+            </motion.a>
+          ) : (
+            <motion.button
+              whileHover={{ x: 4 }}
+              onClick={() => document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })}
+              className={`flex items-center gap-1.5 text-xs ${project.iconColor} hover:opacity-100 opacity-60 transition-opacity font-semibold`}
+            >
+              Quiero esto <ArrowRight size={12} />
+            </motion.button>
+          )}
         </div>
       </div>
       </div>

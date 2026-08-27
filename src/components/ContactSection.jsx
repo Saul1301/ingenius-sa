@@ -125,7 +125,7 @@ export default function ContactSection() {
           `¡Hola! Soy *${clientName}* y les acabo de compartir la idea de mi proyecto a su correo desde la web de Ingenius SA.`
         );
         setTimeout(() => {
-          window.open(`https://wa.me/584242178791?text=${msg}`, '_blank');
+          window.open(`https://wa.me/584143977946?text=${msg}`, '_blank');
           setTimeout(() => setStatus('idle'), 2000);
         }, 1500);
       } else {
@@ -141,7 +141,7 @@ export default function ContactSection() {
 
   const contactInfo = [
     { icon: Mail, label: 'Email', value: 'proyectos.ingeniussa@gmail.com', href: 'mailto:proyectos.ingeniussa@gmail.com' },
-    { icon: Phone, label: 'WhatsApp', value: '+58 424 217 8791', href: 'https://wa.me/584242178791' },
+    { icon: Phone, label: 'WhatsApp', value: '+58 414 397 7946', href: 'https://wa.me/584143977946' },
     { icon: MessageSquare, label: 'Respuesta', value: 'Menos de 24 horas', href: null },
   ];
 

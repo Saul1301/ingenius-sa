@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { MessageCircle, X } from 'lucide-react';
 
-const WHATSAPP_NUMBER = '584242178791'; // ← Número oficial
+const WHATSAPP_NUMBER = '584143977946'; // ← Número oficial
 const WHATSAPP_MESSAGE = encodeURIComponent(
   '¡Hola! Vi su página de Ingenius SA y me interesa hablar sobre un proyecto. ¿Podemos conversar?'
 );

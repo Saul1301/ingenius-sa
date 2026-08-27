@@ -253,7 +253,7 @@ export default function PricingCatalogPage() {
               </p>
             </div>
             <a
-              href="https://wa.me/584242178791?text=Hola%20Ingenius%20SA,%20quiero%20solicitar%20mi%20Asesoria%20Gratuita"
+              href="https://wa.me/584143977946?text=Hola%20Ingenius%20SA,%20quiero%20solicitar%20mi%20Asesoria%20Gratuita"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center justify-center gap-3 px-6 py-4 rounded-xl bg-gradient-to-r from-brand-cyan to-blue-500 text-black font-extrabold text-base shadow-[0_0_25px_rgba(6,182,212,0.5)] hover:shadow-[0_0_35px_rgba(6,182,212,0.8)] transition-all transform hover:-translate-y-0.5 whitespace-nowrap"
@@ -348,7 +348,7 @@ export default function PricingCatalogPage() {
               </div>
 
               <a
-                href={`https://wa.me/584242178791?text=Hola%20Ingenius%20SA,%20quiero%20cotizar%20el%20plan:%20${encodeURIComponent(plan.name)}`}
+                href={`https://wa.me/584143977946?text=Hola%20Ingenius%20SA,%20quiero%20cotizar%20el%20plan:%20${encodeURIComponent(plan.name)}`}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="w-full py-3.5 px-4 rounded-xl font-bold text-xs uppercase tracking-wider text-center bg-cyan-500 hover:bg-cyan-400 text-black transition-colors flex items-center justify-center gap-2"

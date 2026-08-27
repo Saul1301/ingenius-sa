@@ -47,6 +47,7 @@ const founders = [
     accentColor: 'text-brand-cyan',
     accentBg: 'bg-brand-cyan/10',
     tagColor: 'text-brand-cyan border-brand-cyan/20 bg-brand-cyan/5',
+    objectPosition: 'object-center',
     specialties: [
       'Análisis de Situación General & Diagnóstico',
       'Optimización de Operaciones Técnicas & Manuales',
@@ -70,6 +71,7 @@ const founders = [
     accentColor: 'text-brand-gold',
     accentBg: 'bg-brand-gold/10',
     tagColor: 'text-brand-gold border-brand-gold/20 bg-brand-gold/5',
+    objectPosition: 'object-top',
     specialties: [
       'Marketing Digital & Estrategia de Crecimiento',
       'Desarrollo de Estética Digital & UX/UI',
@@ -207,7 +209,7 @@ export default function AboutSection() {
                         <img 
                           src={founder.avatarImg} 
                           alt={founder.name}
-                          className="w-full h-full object-cover object-center rounded-[14px]"
+                          className={`w-full h-full object-cover ${founder.objectPosition || 'object-center'} rounded-[14px]`}
                         />
                       </div>
                       <span className="absolute -bottom-1 -right-1 w-4 h-4 rounded-full bg-green-500 border-2 border-[#0A1628] shadow-[0_0_8px_#22c55e]" />
